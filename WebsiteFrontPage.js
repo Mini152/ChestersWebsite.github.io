@@ -25,7 +25,7 @@ BtnLink2.addEventListener('mouseleave', function() {
     BtnLink2.style.backgroundColor = 'lightslategrey';
 })
 BtnLink2.addEventListener('click', function() {
-    
+    window.location.href = "ChangeColour.html"
 })
 //BtnLink3
 BtnLink3.addEventListener('mouseover', function() {
