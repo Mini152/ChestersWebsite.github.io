@@ -73,12 +73,10 @@ BtnLink2.addEventListener('mouseleave', function() {
     BtnLink2.style.backgroundColor = 'lightslategrey';
 });
 BtnLink2.addEventListener('click', function() {
-    window.location.href = "ChangeColour.html"
+
 });
 BtnLink2.addEventListener('auxclick', function() {
-    if (event.which != 3) {
-        window.open('ChangeColour.html');
-    }
+    
 });
 //BtnLink3
 BtnLink3.addEventListener('mouseover', function() {
