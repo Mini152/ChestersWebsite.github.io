@@ -99,7 +99,7 @@ function Algorithm(algorithmTeam, oppositeTeam) {
                     }
                 }
             }
-            if (buttons[i + j].innerText == oppositeTeam) {
+            if (buttons[i + j].innerText == algorithmTeam) {
                 algorithmFilledCount++;
             }
             if (algorithmFilledCount == 2) {
