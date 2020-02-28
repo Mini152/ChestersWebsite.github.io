@@ -79,20 +79,33 @@ function GetGo(ButtonPressed) {
     }
 }
 
-function Algorithm(AlgorithmTeam, oppositeTeam) {
+function Algorithm(algorithmTeam, oppositeTeam) {
     var arr = [1, 5, 9];
     var loopCount = 0;
     //Checks horizontals for almost win
     for (var i = 1; i <= 9; i +=3) {
-        var FilledCount = 0;
+        var oppositionFilledCount = 0;
+        var algorithmFilledCount = 0;
         for (var j = 0; j < 3; j++) {
             if (buttons[i + j].innerText == oppositeTeam) {
-                FilledCount++;
+                oppositionFilledCount++;
             }
-            if (FilledCount == 2) {
+            if (oppositionFilledCount == 2) {
                 for (var z = 0; z < 3; z++) {
                     if (buttons[i + z].innerText == "") {
-                        buttons[i + z].innerText = AlgorithmTeam;
+                        buttons[i + z].innerText = algorithmTeam;
+                        WinCondition();
+                        return;
+                    }
+                }
+            }
+            if (buttons[i + j].innerText == oppositeTeam) {
+                algorithmFilledCount++;
+            }
+            if (algorithmFilledCount == 2) {
+                for (var z = 0; z < 3; z++) {
+                    if (buttons[i + z].innerText == "") {
+                        buttons[i + z].innerText = algorithmTeam;
                         WinCondition();
                         return;
                     }
@@ -103,15 +116,28 @@ function Algorithm(AlgorithmTeam, oppositeTeam) {
 
     //Checks verticals for almost win
     for (var i = 1; i <= 3; i++) {
-        var FilledCount = 0;
+        var oppositionFilledCount = 0;
+        var algorithmFilledCount = 0;
         for (var j = 0; j < 9; j +=3) {
             if (buttons[i + j].innerText == oppositeTeam) {
-                FilledCount++;
+                oppositionFilledCount++;
             }
-            if (FilledCount == 2) {
+            if (oppositionFilledCount == 2) {
                 for (var z = 0; z < 9; z +=3) {
                     if (buttons[i + z].innerText == "") {
-                        buttons[i + z].innerText = AlgorithmTeam;
+                        buttons[i + z].innerText = algorithmTeam;
+                        WinCondition();
+                        return;
+                    }
+                }
+            }
+            if (buttons[i + j].innerText == algorithmTeam) {
+                algorithmFilledCount++;
+            }
+            if (algorithmFilledCount == 2) {
+                for (var z = 0; z < 9; z +=3) {
+                    if (buttons[i + z].innerText == "") {
+                        buttons[i + z].innerText = algorithmTeam;
                         WinCondition();
                         return;
                     }
@@ -120,17 +146,30 @@ function Algorithm(AlgorithmTeam, oppositeTeam) {
         }
     }
 
-    //Checks diagonals for almost win
+    //Checks diagonals foralmost win
     for (var i = 1; i <= 2; i++) {
-        var FilledCount = 0;
+        var oppositionFilledCount = 0;
+        var algorithmFilledCount = 0;
         for (var j = 0; j < 3; j++) {
             if (buttons[arr[j]].innerText == oppositeTeam) {
-                FilledCount++;
+                oppositionFilledCount++;
             }
-            if (FilledCount == 2) {
+            if (oppositionFilledCount == 2) {
                 for (var z = 0; z < 3; z ++) {
                     if (buttons[arr[z]].innerText == "") {
-                        buttons[arr[z]].innerText = AlgorithmTeam;
+                        buttons[arr[z]].innerText = algorithmTeam;
+                        WinCondition();
+                        return;
+                    }
+                }
+            }
+            if (buttons[arr[j]].innerText == algorithmTeam) {
+                algorithmFilledCount++;
+            }
+            if (algorithmFilledCount == 2) {
+                for (var z = 0; z < 3; z ++) {
+                    if (buttons[arr[z]].innerText == "") {
+                        buttons[arr[z]].innerText = algorithmTeam;
                         WinCondition();
                         return;
                     }
@@ -144,7 +183,7 @@ function Algorithm(AlgorithmTeam, oppositeTeam) {
     while (true) {
         var rndGuess = Math.floor(Math.random() * (9 - 1 + 1) ) + 1;
         if (buttons[rndGuess].innerText == "") {
-            buttons[rndGuess].innerText = AlgorithmTeam;
+            buttons[rndGuess].innerText = algorithmTeam;
             WinCondition();
             return;
         }
