@@ -82,15 +82,18 @@ function GetGo(ButtonPressed) {
 function Algorithm(algorithmTeam, oppositeTeam) {
     var arr = [1, 5, 9];
     var loopCount = 0;
+
+    //Check for 2 oposition team in a row and block:
+
     //Checks horizontals for almost win
     for (var i = 1; i <= 9; i +=3) {
         var oppositionFilledCount = 0;
         var algorithmFilledCount = 0;
         for (var j = 0; j < 3; j++) {
-            if (buttons[i + j].innerText == oppositeTeam) {
-                oppositionFilledCount++;
+            if (buttons[i + j].innerText == algorithmTeam) {
+                algorithmFilledCount++;
             }
-            if (oppositionFilledCount == 2) {
+            if (algorithmFilledCount == 2) {
                 for (var z = 0; z < 3; z++) {
                     if (buttons[i + z].innerText == "") {
                         buttons[i + z].innerText = algorithmTeam;
@@ -99,10 +102,10 @@ function Algorithm(algorithmTeam, oppositeTeam) {
                     }
                 }
             }
-            if (buttons[i + j].innerText == algorithmTeam) {
-                algorithmFilledCount++;
+            if (buttons[i + j].innerText == oppositeTeam) {
+                oppositionFilledCount++;
             }
-            if (algorithmFilledCount == 2) {
+            if (oppositionFilledCount == 2) {
                 for (var z = 0; z < 3; z++) {
                     if (buttons[i + z].innerText == "") {
                         buttons[i + z].innerText = algorithmTeam;
@@ -119,18 +122,6 @@ function Algorithm(algorithmTeam, oppositeTeam) {
         var oppositionFilledCount = 0;
         var algorithmFilledCount = 0;
         for (var j = 0; j < 9; j +=3) {
-            if (buttons[i + j].innerText == oppositeTeam) {
-                oppositionFilledCount++;
-            }
-            if (oppositionFilledCount == 2) {
-                for (var z = 0; z < 9; z +=3) {
-                    if (buttons[i + z].innerText == "") {
-                        buttons[i + z].innerText = algorithmTeam;
-                        WinCondition();
-                        return;
-                    }
-                }
-            }
             if (buttons[i + j].innerText == algorithmTeam) {
                 algorithmFilledCount++;
             }
@@ -143,14 +134,38 @@ function Algorithm(algorithmTeam, oppositeTeam) {
                     }
                 }
             }
-        }
+            if (buttons[i + j].innerText == oppositeTeam) {
+                oppositionFilledCount++;
+            }
+            if (oppositionFilledCount == 2) {
+                for (var z = 0; z < 9; z +=3) {
+                    if (buttons[i + z].innerText == "") {
+                        buttons[i + z].innerText = algorithmTeam;
+                        WinCondition();
+                        return;
+                    }
+                }
+            }
+        } 
     }
 
-    //Checks diagonals foralmost win
+    //Checks diagonals for almost win
     for (var i = 1; i <= 2; i++) {
         var oppositionFilledCount = 0;
         var algorithmFilledCount = 0;
         for (var j = 0; j < 3; j++) {
+            if (buttons[arr[j]].innerText == algorithmTeam) {
+                algorithmFilledCount++;
+            }
+            if (algorithmFilledCount == 2) {
+                for (var z = 0; z < 3; z ++) {
+                    if (buttons[arr[z]].innerText == "") {
+                        buttons[arr[z]].innerText = algorithmTeam;
+                        WinCondition();
+                        return;
+                    }
+                }
+            }
             if (buttons[arr[j]].innerText == oppositeTeam) {
                 oppositionFilledCount++;
             }
@@ -163,10 +178,65 @@ function Algorithm(algorithmTeam, oppositeTeam) {
                     }
                 }
             }
-            if (buttons[arr[j]].innerText == algorithmTeam) {
-                algorithmFilledCount++;
+        }
+        arr = [3, 5, 7];
+    }
+
+    //if btn5 clear place algorithmTeam
+    if (buttons[5].innerText == "") {
+        buttons[5].innerText = algorithmTeam;
+        WinCondition();
+        return;
+    }
+
+    //Check for 1 algortithm team and 2 blanks in row and place
+
+    //Checks horizontals clear grid
+    for (var i = 1; i <= 9; i +=3) {
+        var FilledCount = 0;
+        for (var j = 0; j < 3; j++) {
+            if (buttons[i + j].innerText == algorithmTeam || buttons[i + j].innerText == "") {
+                FilledCount++;
             }
-            if (algorithmFilledCount == 2) {
+            if (FilledCount == 3) {
+                for (var z = 0; z < 3; z++) {
+                    if (buttons[i + z].innerText == "") {
+                        buttons[i + z].innerText = algorithmTeam;
+                        WinCondition();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    //Checks verticals for clear grid
+    for (var i = 1; i <= 3; i++) {
+        var FilledCount = 0;
+        for (var j = 0; j < 9; j +=3) {
+            if (buttons[i + j].innerText == algorithmTeam || buttons[i + j].innerText == "") {
+                FilledCount++;
+            }
+            if (FilledCount == 3) {
+                for (var z = 0; z < 9; z +=3) {
+                    if (buttons[i + z].innerText == "") {
+                        buttons[i + z].innerText = algorithmTeam;
+                        WinCondition();
+                        return;
+                    }
+                }
+            }
+        } 
+    }
+
+    //Checks diagonals for clear grid
+    for (var i = 1; i <= 2; i++) {
+        var FilledCount = 0;
+        for (var j = 0; j < 3; j++) {
+            if (buttons[arr[j]].innerText == algorithmTeam || buttons[arr[j]].innerText == "") {
+                FilledCount++;
+            }
+            if (FilledCount == 3) {
                 for (var z = 0; z < 3; z ++) {
                     if (buttons[arr[z]].innerText == "") {
                         buttons[arr[z]].innerText = algorithmTeam;
