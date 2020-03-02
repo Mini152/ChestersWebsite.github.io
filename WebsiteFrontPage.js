@@ -70,10 +70,12 @@ BtnLink2.addEventListener('auxclick', function() {
 });
 //BtnLink3
 BtnLink3.addEventListener('click', function() {
-    
+    window.location.href = 'Grid Game.html'
 });
 BtnLink3.addEventListener('auxclick', function() {
-
+    if (event.which != 3) {
+        Window.open('Grid Game.html');
+    }
 });
 //BtnLink4
 BtnLink4.addEventListener('click', function() {

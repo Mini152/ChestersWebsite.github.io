@@ -3,8 +3,15 @@
     --grid-rows: 1;
 }
 
+.score {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 30px;
+}
+
 .container {
-    width: 750px;
+    width: 500px;
+    height: 500px;
     margin: 0 auto;
     text-align: center;
     border: 1px solid black;
@@ -17,6 +24,7 @@
 }
 
 .grid-item {
+    border: 1px dashed black;
     padding: 1em;
     width: 16px;
     height: 16px;
