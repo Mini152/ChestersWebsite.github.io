@@ -102,18 +102,6 @@ function Algorithm(algorithmTeam, oppositeTeam) {
                     }
                 }
             }
-            if (buttons[i + j].innerText == oppositeTeam) {
-                oppositionFilledCount++;
-            }
-            if (oppositionFilledCount == 2) {
-                for (var z = 0; z < 3; z++) {
-                    if (buttons[i + z].innerText == "") {
-                        buttons[i + z].innerText = algorithmTeam;
-                        WinCondition();
-                        return;
-                    }
-                }
-            }
         }
     }
 
@@ -126,18 +114,6 @@ function Algorithm(algorithmTeam, oppositeTeam) {
                 algorithmFilledCount++;
             }
             if (algorithmFilledCount == 2) {
-                for (var z = 0; z < 9; z +=3) {
-                    if (buttons[i + z].innerText == "") {
-                        buttons[i + z].innerText = algorithmTeam;
-                        WinCondition();
-                        return;
-                    }
-                }
-            }
-            if (buttons[i + j].innerText == oppositeTeam) {
-                oppositionFilledCount++;
-            }
-            if (oppositionFilledCount == 2) {
                 for (var z = 0; z < 9; z +=3) {
                     if (buttons[i + z].innerText == "") {
                         buttons[i + z].innerText = algorithmTeam;
@@ -166,6 +142,55 @@ function Algorithm(algorithmTeam, oppositeTeam) {
                     }
                 }
             }
+        }
+        arr = [3, 5, 7];
+    }
+
+    //Check horizonals for enemy almost win
+    for (var i = 1; i <= 9; i +=3) {
+        var oppositionFilledCount = 0;
+        var algorithmFilledCount = 0;
+        for (var j = 0; j < 3; j++) {
+            if (buttons[i + j].innerText == oppositeTeam) {
+                oppositionFilledCount++;
+            }
+            if (oppositionFilledCount == 2) {
+                for (var z = 0; z < 3; z++) {
+                    if (buttons[i + z].innerText == "") {
+                        buttons[i + z].innerText = algorithmTeam;
+                        WinCondition();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    //Checks verticals for enemy almost win
+    for (var i = 1; i <= 3; i++) {
+        var oppositionFilledCount = 0;
+        var algorithmFilledCount = 0;
+        for (var j = 0; j < 9; j +=3) {
+            if (buttons[i + j].innerText == oppositeTeam) {
+                oppositionFilledCount++;
+            }
+            if (oppositionFilledCount == 2) {
+                for (var z = 0; z < 9; z +=3) {
+                    if (buttons[i + z].innerText == "") {
+                        buttons[i + z].innerText = algorithmTeam;
+                        WinCondition();
+                        return;
+                    }
+                }
+            }
+        } 
+    }
+
+    //Checks diagonals for enemy almost win
+    for (var i = 1; i <= 2; i++) {
+        var oppositionFilledCount = 0;
+        var algorithmFilledCount = 0;
+        for (var j = 0; j < 3; j++) {
             if (buttons[arr[j]].innerText == oppositeTeam) {
                 oppositionFilledCount++;
             }
