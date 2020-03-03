@@ -65,16 +65,16 @@ BtnLink2.addEventListener('click', function() {
 });
 BtnLink2.addEventListener('auxclick', function() {
     if (event.which != 3) {
-        window.open('NougtsAcrosses.html');
+        window.open('Noughts&Crosses.html');
     }
 });
 //BtnLink3
 BtnLink3.addEventListener('click', function() {
-    window.location.href = 'Grid Game.html'
+    window.location.href = 'Grid Game.html';
 });
 BtnLink3.addEventListener('auxclick', function() {
     if (event.which != 3) {
-        Window.open('Grid Game.html');
+        window.open('Grid Game.html');
     }
 });
 //BtnLink4
