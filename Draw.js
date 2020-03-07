@@ -1,7 +1,7 @@
 const canvas = document.getElementById('canvas');
 var bCoords = document.getElementById('bCoords');
 var bTitle = document.getElementById('bTitle');
-const btnNew = document.getElementById('btnNew');
+const btnClear = document.getElementById('btnClear');
 const btnSave = document.getElementById('btnSave');
 var mouseDown = false, drawState = false;
 // x /2.66, y /4.69 
@@ -77,8 +77,9 @@ canvas.addEventListener("click", function() {
     drawOnMousePostiton(canvas);
 });
 //btn events
-btnNew.addEventListener("click", function() {
-    window.location.reload();
+btnClear.addEventListener("click", function() {
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 });
 btnSave.addEventListener("click", function() {
 

@@ -79,10 +79,12 @@ BtnLink3.addEventListener('auxclick', function() {
 });
 //BtnLink4
 BtnLink4.addEventListener('click', function() {
-    
+    window.location.href = 'Pong.html';
 });
 BtnLink4.addEventListener('auxclick', function() {
-
+    if (event.which != 3) {
+        window.open('Pong.html');
+    }
 });
 //BtnLink5
 BtnLink5.addEventListener('click', function() {
