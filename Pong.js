@@ -65,12 +65,12 @@ function drawNet() {
 
 function UpdateUserScore(score) {
     context.font = "30px Arial";
-    context.fillText(score.ToString(), 100, 10);
+    context.fillText(score, 200, 30);
 }
 
 function UpdateComScore(score) {
     context.font = "30px Arial";
-    context.fillText(score.ToString(), 400, 10);
+    context.fillText(score, 385, 30);
 }
 
 
