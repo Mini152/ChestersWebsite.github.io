@@ -1,6 +1,6 @@
 const canvas = document.getElementById('Pong');
 const context = canvas.getContext('2d');
-var position = 30, speed = 10;
+const body = document.getElementById('body');
 var ball = {
     direction: Math.floor(Math.random() * (4 - 1 + 1)) + 1, // (max - min + 1)) - min;
     x: canvas.width / 2,
@@ -15,10 +15,17 @@ var com = {
     y: 30,
     score: 0
 }
+const net = {
+    x: canvas.width/ 2 - 2/ 2,
+    y: 0,
+    width: 2,
+    height: 10,
+    colour: "white"
+}
 
 //creating objects
 
-function createPaddle(x, y, w, h) {
+function drawPaddle(x, y, w, h) {
     context.fillStyle = "white";
     context.beginPath();
     context.fillRect(x, y, w, h);
@@ -30,12 +37,15 @@ function clearCanvas() {
 }
 
 function moveLeftPaddle() {
-    createPaddle(30, user.y - 30, 15, 60);
+    drawPaddle(30, user.y - 30, 15, 60);
 }
 
 function moveRightPaddle() {
-    createPaddle(555, ball.y - 30, 15, 60)
-    com.y = ball.y;
+    drawPaddle(555, ball.y - 30, 15, 60)
+    if (ball.y >= 30 && ball.y <= 370) {
+        com.y = ball.y;        
+    }
+
 }
 
 function drawBall(x, y) {
@@ -44,6 +54,26 @@ function drawBall(x, y) {
     context.arc(x, y, 10, 0, 2 * Math.PI);
     context.fill();
 }
+
+function drawNet() {
+    for (let i = 0; i < canvas.height; i+=15) {
+        context.fillRect(net.x, net.y + i,net.width, net.height, net.colour);
+    }
+}
+
+//score
+
+function UpdateUserScore(score) {
+    context.font = "30px Arial";
+    context.fillText(score.ToString(), 100, 10);
+}
+
+function UpdateComScore(score) {
+    context.font = "30px Arial";
+    context.fillText(score.ToString(), 400, 10);
+}
+
+
 
 function Wait(ms) {
     var d = new Date();
@@ -54,9 +84,11 @@ function Wait(ms) {
 
 function resetObjects() {
     clearCanvas();
-    createPaddle(30, 30, 15, 60); // left paddle
-    createPaddle(555, 30, 15, 60); // right paddle
+    drawPaddle(30, 30, 15, 60); // left paddle
+    drawPaddle(555, 30, 15, 60); // right paddle
     drawBall(canvas.width / 2, canvas.height / 2);
+    UpdateComScore(com.score);
+    UpdateUserScore(user.score);
     user.y = 30;
     com.y = 30;
     ball.x = canvas.width / 2;
@@ -71,6 +103,9 @@ function render() {
     moveLeftPaddle();
     moveRightPaddle();
     drawBall(ball.x, ball.y);
+    drawNet();
+    UpdateComScore(com.score);
+    UpdateUserScore(user.score);
 }
 
 function ballCollision() {
@@ -101,6 +136,7 @@ function ballCollision() {
                 }
             } else {
                 com.score++;
+                UpdateComScore(com.score);
                 resetObjects();
             }
             break;
@@ -113,6 +149,7 @@ function ballCollision() {
                 }
             } else {
                 user.score++;
+                UpdateUserScore(user.score);
                 resetObjects();
             }
             break;
@@ -144,19 +181,39 @@ function update() {
 //handling game loop
 
 canvas.addEventListener('mousemove', function(event) {
-    user.y = event.clientY; // updates player position
+    if (event.clientY >= 30 && event.clientY <= 370) {
+        user.y = event.clientY; // updates player position
+    }
 }, false);
 
-canvas.addEventListener("click", function() {
-    speed--;
+//const btnUp = document.getElementById('btnUp');
+//const btnDown = document.getElementById('btnDown');
+
+//btnUp.addEventListener('click', function() {
+//    user.y -= 30;
+//});
+
+//btnDown.addEventListener('click', function() {
+//    user.y += 30;
+//})
+
+
+body.addEventListener('keypress', function() {
+    if (event.which == 87) {
+        user.y -= 30;
+    } else if (event.which == 83) {
+        user.y += 30;
+    }
 });
+
+
 
 function game() {
     update();
     render();
 }
 
-var gameInterval = setInterval(game, speed);
+var gameInterval = setInterval(game, 6);
 
 //function game(event) {
 //    update();
