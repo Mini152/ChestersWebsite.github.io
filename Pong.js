@@ -1,8 +1,9 @@
-const canvas = document.getElementById('Pong');
-const context = canvas.getContext('2d');
-const body = document.getElementById('body');
+const canvas = document.getElementById('Pong'); // canvas HTML element
+const context = canvas.getContext('2d'); // context for canvas
+const body = document.getElementById('body'); // body HTML element
+var bounces = 0; // counts the number of bounces
 var ball = {
-    direction: Math.floor(Math.random() * (4 - 1 + 1)) + 1, // (max - min + 1)) - min;
+    direction: Math.floor(Math.random() * (4 - 1 + 1)) + 1, // (max - min + 1)) + min;
     x: canvas.width / 2,
     y: canvas.height / 2
 }
@@ -33,7 +34,7 @@ function drawPaddle(x, y, w, h) {
 }
 
 function clearCanvas() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, canvas.width, canvas.height); // creates filled rectangle over the canvas screen to clear the screen
 }
 
 function moveLeftPaddle() {
@@ -41,17 +42,16 @@ function moveLeftPaddle() {
 }
 
 function moveRightPaddle() {
-    drawPaddle(555, ball.y - 30, 15, 60)
+    drawPaddle(555, com.y - 30, 15, 60)
     if (ball.y >= 30 && ball.y <= 370) {
-        com.y = ball.y;        
+        com.y = ball.y; // position computer paddle over ball's y position
     }
-
 }
 
 function drawBall(x, y) {
     context.fillStyle = "white"
     context.beginPath();
-    context.arc(x, y, 10, 0, 2 * Math.PI);
+    context.arc(x, y, 10, 0, 2 * Math.PI); // creates ball
     context.fill();
 }
 
@@ -72,8 +72,6 @@ function UpdateComScore(score) {
     context.font = "30px Arial";
     context.fillText(score, 385, 30);
 }
-
-
 
 function Wait(ms) {
     var d = new Date();
@@ -186,18 +184,6 @@ canvas.addEventListener('mousemove', function(event) {
     }
 }, false);
 
-//const btnUp = document.getElementById('btnUp');
-//const btnDown = document.getElementById('btnDown');
-
-//btnUp.addEventListener('click', function() {
-//    user.y -= 30;
-//});
-
-//btnDown.addEventListener('click', function() {
-//    user.y += 30;
-//})
-
-
 body.addEventListener('keypress', function() {
     if (event.which == 87) {
         user.y -= 30;
@@ -206,18 +192,9 @@ body.addEventListener('keypress', function() {
     }
 });
 
-
-
 function game() {
     update();
     render();
 }
 
 var gameInterval = setInterval(game, 6);
-
-//function game(event) {
-//    update();
-//    render(event);
-//    window.requestAnimationFrame(game);
-//}
-//window.requestAnimationFrame(game)
