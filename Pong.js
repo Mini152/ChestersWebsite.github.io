@@ -1,7 +1,6 @@
 const canvas = document.getElementById('Pong'); // canvas HTML element
 const context = canvas.getContext('2d'); // context for canvas
 const body = document.getElementById('body'); // body HTML element
-var bounces = 0; // counts the number of bounces
 var ball = {
     direction: Math.floor(Math.random() * (4 - 1 + 1)) + 1, // (max - min + 1)) + min;
     x: canvas.width / 2,
@@ -42,10 +41,11 @@ function moveLeftPaddle() {
 }
 
 function moveRightPaddle() {
-    drawPaddle(555, com.y - 30, 15, 60)
-    if (ball.y >= 30 && ball.y <= 370) {
-        com.y = ball.y; // position computer paddle over ball's y position
-    }
+    drawPaddle(555, algorithm() - 30, 15, 60)
+    //com.y = ball.y; // position computer paddle over ball's y position
+    //if (ball.y >= 30 && ball.y <= 370) {
+
+    //}
 }
 
 function drawBall(x, y) {
@@ -87,12 +87,59 @@ function resetObjects() {
     drawBall(canvas.width / 2, canvas.height / 2);
     UpdateComScore(com.score);
     UpdateUserScore(user.score);
-    user.y = 30;
-    com.y = 30;
+    user.y = 60;
+    com.y = 60;
     ball.x = canvas.width / 2;
     ball.y = canvas.height / 2;
     ball.direction = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
 }
+
+// com play algorithm
+
+function algorithm() { // returns position
+    if (ball.y >= 30 && ball.y <= 370) {
+        com.y = ball.y;
+        return com.y;
+    }
+    return com.y;
+
+
+    
+
+    //********************************
+    //* com just starts freaking out *
+    //********************************
+
+    //if (ball.x >= 500) {
+    //    var rndPos = Math.floor(Math.random() * (60 - 1 + 1)) + 1;
+    //    com.y = (ball.y - 30) + rndPos;
+    //    return com.y;
+    //} else {
+    //    com.y = ball.y - 30;
+    //    return com.y;
+    //}
+
+    // ******************************
+    // * deflect to opposite corner *
+    // ******************************
+    
+    //if (user.y >= (canvas.height / 2) + 100) {
+    //    com.y = (ball.y + 25);
+    //} else if (user.y <= (canvas.height / 2) - 100) {
+    //    com.y = (ball.y - 25); 
+    //} else {
+    //    com.y = ball.y;
+    //}
+    //return com.y
+}
+
+
+
+
+
+
+
+
 
 //handling game render & progress
 
@@ -116,7 +163,7 @@ function ballCollision() {
                 ball.direction = 3;
             }
             break;
-        case rect.bottom - 20:
+        case rect.bottom - 15:
             if (ball.direction == 3) {
                 ball.direction = 4;
             } else {
@@ -125,12 +172,20 @@ function ballCollision() {
             break;
     }
     switch (ball.x) {
-        case 45:
+        case 40:
             if (ball.y >= user.y - 30 && ball.y <= (user.y + 60) - 30) {
-                if (ball.direction == 3) {
+                //same direction
+                if (ball.y >= user.y - 30 && ball.y <= (user.y + 15) - 30) {
+                    ball.direction = 1;                
+                } else if (ball.y >= (user.y + 45) - 30 && ball.y <= (user.y + 60) - 30) {
                     ball.direction = 2;
                 } else {
-                    ball.direction = 1;
+                    //bounce
+                    if (ball.direction == 3) {
+                        ball.direction = 2;
+                    } else {
+                        ball.direction = 1;
+                    }
                 }
             } else {
                 com.score++;
@@ -138,12 +193,20 @@ function ballCollision() {
                 resetObjects();
             }
             break;
-        case 555:
+        case 560:
             if (ball.y >= com.y - 30 && ball.y <= (com.y + 60) - 30) {
-                if (ball.direction == 2) {
-                    ball.direction = 3;
+                //same direction
+                if (ball.y >= com.y - 30 && ball.y <= (com.y + 15) - 30) {
+                     ball.direction = 4;
+                } else if (ball.y >= (com.y + 45) - 30 && ball.y <= (com.y + 60) - 30) {
+                     ball.direction = 3;
                 } else {
+                    //bounce
+                    if (ball.direction == 2) {
+                    ball.direction = 3;
+                    } else {
                     ball.direction = 4;
+                    }
                 }
             } else {
                 user.score++;
@@ -182,7 +245,7 @@ canvas.addEventListener('mousemove', function(event) {
     if (event.clientY >= 30 && event.clientY <= 370) {
         user.y = event.clientY; // updates player position
     }
-}, false);
+});
 
 body.addEventListener('keypress', function() {
     if (event.which == 87) {
@@ -197,4 +260,5 @@ function game() {
     render();
 }
 
+resetObjects();
 var gameInterval = setInterval(game, 6);
