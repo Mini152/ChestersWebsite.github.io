@@ -69,28 +69,28 @@ function render() {
 //handling game running -----------------------------------
 function keyPush(evt) {
     switch (evt.keyCode) {
-        case 65: // left
+        case 65: case 37: // left
             //stops you moving back onto yourself
             if (xVelocity != 1) {
                 xVelocity = -1;
                 yVelocity = 0;
             }
             break;
-        case 87: // up
+        case 87: case 38: // up
             //stops you moving back onto yourself
             if (yVelocity != 1) {
                 xVelocity = 0;
                 yVelocity = -1;
             }
             break;
-        case 68: // right
+        case 68: case 39: // right
             //stops you moving back onto yourself
             if (xVelocity != -1) {
                 xVelocity = 1;
                 yVelocity = 0;
             }
             break;
-        case 83: // down
+        case 83: case 40: // down
             //stops you moving back onto yourself
             if (yVelocity != -1) {
                 xVelocity = 0;
