@@ -45,7 +45,7 @@ function render() {
     context.fillStyle = "lime";
     for (var i = 0; i < trail.length; i++) {
         context.fillRect(trail[i].x * gridDimension, trail[i].y * gridDimension, gridDimension - 2, gridDimension - 2);
-        if (trail[i].x == playerX && trail[i].y == playerY) {
+        if (trail[i].x == playerX && trail[i].y == playerY) { //if snake eats itself
             tail = 5;
         }
     }
@@ -99,8 +99,6 @@ function keyPush(evt) {
             break;
     }
 }
-
-//stops you moving back onto yourself
 
 document.addEventListener("keydown", keyPush);
 setInterval(game, 1000 / 15); // 15 fps

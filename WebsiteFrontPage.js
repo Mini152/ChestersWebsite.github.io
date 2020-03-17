@@ -88,7 +88,7 @@ BtnLink4.addEventListener('auxclick', function() {
 });
 //BtnLink5
 BtnLink5.addEventListener('click', function() {
-    window.location.href = "Snake.html";
+    window.location.href = 'Snake.html';
 });
 BtnLink5.addEventListener('auxclick', function() {
     if (event.which != 3) {

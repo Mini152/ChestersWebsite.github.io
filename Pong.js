@@ -1,6 +1,7 @@
 const canvas = document.getElementById('Pong'); // canvas HTML element
 const context = canvas.getContext('2d'); // context for canvas
 const body = document.getElementById('body'); // body HTML element
+var speed = 60;
 var ball = {
     direction: Math.floor(Math.random() * (4 - 1 + 1)) + 1, // (max - min + 1)) + min;
     x: canvas.width / 2,
@@ -92,19 +93,19 @@ function resetObjects() {
     ball.x = canvas.width / 2;
     ball.y = canvas.height / 2;
     ball.direction = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    clearInterval(gameInterval);
+    speed = 60;
+    gameInterval = setInterval(game, 1000 / speed);
 }
 
 // com play algorithm
 
 function algorithm() { // returns position
-    if (ball.y >= 30 && ball.y <= 370) {
-        com.y = ball.y;
+    if (ball.y >= 20 && ball.y <= 380) {
+        com.y += (ball.y - com.y) * 0.07;
         return com.y;
     }
     return com.y;
-
-
-    
 
     //********************************
     //* com just starts freaking out *
@@ -133,14 +134,6 @@ function algorithm() { // returns position
     //return com.y
 }
 
-
-
-
-
-
-
-
-
 //handling game render & progress
 
 function render() {
@@ -163,7 +156,7 @@ function ballCollision() {
                 ball.direction = 3;
             }
             break;
-        case rect.bottom - 15:
+        case rect.bottom - 14:
             if (ball.direction == 3) {
                 ball.direction = 4;
             } else {
@@ -187,6 +180,7 @@ function ballCollision() {
                         ball.direction = 1;
                     }
                 }
+                paddleBounce();
             } else {
                 com.score++;
                 UpdateComScore(com.score);
@@ -208,6 +202,7 @@ function ballCollision() {
                     ball.direction = 4;
                     }
                 }
+                paddleBounce();
             } else {
                 user.score++;
                 UpdateUserScore(user.score);
@@ -220,23 +215,32 @@ function ballCollision() {
 function update() {
     switch (ball.direction) {
         case 1:
-            ball.y--;
-            ball.x++;
+            ball.y-=2;
+            ball.x+=2;
             break;
         case 2:
-            ball.x++;
-            ball.y++;
+            ball.x+=2;
+            ball.y+=2;
             break;
         case 3:
-            ball.y++;
-            ball.x--;
+            ball.y+=2;
+            ball.x-=2;
             break;
         case 4:
-            ball.x--;
-            ball.y--;
+            ball.x-=2;
+            ball.y-=2;
             break;
     }
     ballCollision();
+}
+
+function paddleBounce() {
+    clearInterval(gameInterval);
+    speed += 5;
+    if (speed > 150) {
+        speed = 150;
+    }
+    gameInterval = setInterval(game, 1000 / speed);
 }
 
 //handling game loop
@@ -261,4 +265,4 @@ function game() {
 }
 
 resetObjects();
-var gameInterval = setInterval(game, 6);
+var gameInterval = setInterval(game, 1000 / speed);
