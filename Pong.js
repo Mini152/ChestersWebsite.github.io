@@ -50,7 +50,7 @@ function moveRightPaddle() {
 }
 
 function drawBall(x, y) {
-    context.fillStyle = "white"
+    context.fillStyle = "white";
     context.beginPath();
     context.arc(x, y, 10, 0, 2 * Math.PI); // creates ball
     context.fill();
@@ -165,29 +165,7 @@ function ballCollision() {
             break;
     }
     switch (ball.x) {
-        case 40:
-            if (ball.y >= user.y - 30 && ball.y <= (user.y + 60) - 30) {
-                //same direction
-                if (ball.y >= user.y - 30 && ball.y <= (user.y + 15) - 30) {
-                    ball.direction = 1;                
-                } else if (ball.y >= (user.y + 45) - 30 && ball.y <= (user.y + 60) - 30) {
-                    ball.direction = 2;
-                } else {
-                    //bounce
-                    if (ball.direction == 3) {
-                        ball.direction = 2;
-                    } else {
-                        ball.direction = 1;
-                    }
-                }
-                paddleBounce();
-            } else {
-                com.score++;
-                UpdateComScore(com.score);
-                resetObjects();
-            }
-            break;
-        case 560:
+        case 558:
             if (ball.y >= com.y - 30 && ball.y <= (com.y + 60) - 30) {
                 //same direction
                 if (ball.y >= com.y - 30 && ball.y <= (com.y + 15) - 30) {
@@ -203,11 +181,35 @@ function ballCollision() {
                     }
                 }
                 paddleBounce();
-            } else {
-                user.score++;
-                UpdateUserScore(user.score);
-                resetObjects();
             }
+            break;
+        case 48:
+            if (ball.y >= user.y - 30 && ball.y <= (user.y + 60) - 30) {
+                //same direction
+                if (ball.y >= user.y - 30 && ball.y <= (user.y + 15) - 30) {
+                    ball.direction = 1;                
+                } else if (ball.y >= (user.y + 45) - 30 && ball.y <= (user.y + 60) - 30) {
+                    ball.direction = 2;
+                } else {
+                    //bounce
+                    if (ball.direction == 3) {
+                        ball.direction = 2;
+                    } else {
+                        ball.direction = 1;
+                    }
+                }
+                paddleBounce();
+            }
+            break;        
+        case 30:
+            com.score++;
+            UpdateComScore(com.score);
+            resetObjects();
+            break;
+        case 570:
+            user.score++;
+            UpdateUserScore(user.score);
+            resetObjects();
             break;
     }
 }

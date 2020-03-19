@@ -55,7 +55,7 @@ BtnLink1.addEventListener('click', function() {
         window.location.href = 'Draw.html';
 });
 BtnLink1.addEventListener('auxclick', function() {
-    if (event.which != 3) {
+    if (event.which == 2) {
         window.open('Draw.html');
     }
 });
@@ -64,7 +64,7 @@ BtnLink2.addEventListener('click', function() {
     window.location.href = 'Noughts&Crosses.html';
 });
 BtnLink2.addEventListener('auxclick', function() {
-    if (event.which != 3) {
+    if (event.which == 2) {
         window.open('Noughts&Crosses.html');
     }
 });
@@ -73,7 +73,7 @@ BtnLink3.addEventListener('click', function() {
     window.location.href = 'Grid Game.html';
 });
 BtnLink3.addEventListener('auxclick', function() {
-    if (event.which != 3) {
+    if (event.which == 2) {
         window.open('Grid Game.html');
     }
 });
@@ -82,7 +82,7 @@ BtnLink4.addEventListener('click', function() {
     window.location.href = 'Pong.html';
 });
 BtnLink4.addEventListener('auxclick', function() {
-    if (event.which != 3) {
+    if (event.which == 2) {
         window.open('Pong.html');
     }
 });
@@ -91,16 +91,18 @@ BtnLink5.addEventListener('click', function() {
     window.location.href = 'Snake.html';
 });
 BtnLink5.addEventListener('auxclick', function() {
-    if (event.which != 3) {
+    if (event.which == 2) {
         window.open('Snake.html');
     }
 });
 //BtnLink6
 BtnLink6.addEventListener('click', function() {
-    
+    window.location.href = 'FlappyBirb.html';
 });
 BtnLink6.addEventListener('auxclick', function() {
-
+    if (event.which == 2) {
+        window.open('FlappyBirb.html');
+    }
 });
 //BtnLink7
 BtnLink7.addEventListener('click', function() {

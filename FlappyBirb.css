@@ -1,0 +1,10 @@
+.Div {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.Canvas {
+    width: 800px;  
+    height: 400px;
+    background-color: lightblue;
+}
