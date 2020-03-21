@@ -9,13 +9,13 @@
     cursor: pointer;
 }
 .buttonsDiv {
-    border-top: 3px solid black;
-    border-bottom: 3px solid black;
-    text-align: center;
-}
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;}
 /* body */
 .body {
-    min-width: 630px;
     background-color: lightslategray;
 }
 /* title */
@@ -29,7 +29,8 @@
 }
 /* display */
 .displayDiv {
-    border-top: 1px solid black;
+    padding-top: 10px;
+    /*border-top: 1px solid black;*/
 }
 .displayTitle {
     display: block;
@@ -41,17 +42,13 @@
     border-color: black;
     cursor: pointer;
     text-align: center;
-    width: 20%;
+    width: 40%;
     height: 50px;
 }
 .displayPlayButton:hover {
     background-color: slategray;
 }
-.displayImgLeft {
+.displayImg {
     float: left;
-    width: 30%;
-}
-.displayImgRight {
-    float: right;
     width: 30%;
 }
