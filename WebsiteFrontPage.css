@@ -1,0 +1,54 @@
+/* buttons */
+.buttons:hover {
+    background-color: slategray;
+}
+.buttons {
+    width: 10%;
+    background-color: lightslategray;
+    border-color: black;
+    cursor: pointer;
+}
+.buttonsDiv {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;}
+/* body */
+.body {
+    background-color: lightslategray;
+}
+/* title */
+.titleDiv {
+    margin: 0 auto;
+    text-align: center;
+}
+.title {
+    font-size: 75px;
+    color: black;
+}
+/* display */
+.displayDiv {
+    padding-top: 10px;
+    /*border-top: 1px solid black;*/
+}
+.displayTitle {
+    display: block;
+    text-align: center;
+    font-size: 50px;
+}
+.displayPlayButton {
+    background-color: lightslategray;
+    border-color: black;
+    cursor: pointer;
+    text-align: center;
+    width: 40%;
+    height: 50px;
+}
+.displayPlayButton:hover {
+    background-color: slategray;
+}
+.displayImg {
+    float: left;
+    width: 30%;
+}
