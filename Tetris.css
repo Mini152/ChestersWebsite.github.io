@@ -1,0 +1,11 @@
+.Body {
+    background-color: lightslategray;
+}
+.Div {
+    text-align: center;
+}
+.Canvas {
+    width: 400px;
+    height: 800px;
+    background-color: black;
+}

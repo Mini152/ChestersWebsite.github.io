@@ -1,31 +1,20 @@
-/* buttons */
-.buttons:hover {
-    background-color: slategray;
-}
-.buttons {
-    width: 10%;
-    background-color: lightslategray;
-    border-color: black;
-    cursor: pointer;
-}
-.buttonsDiv {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;}
 /* body */
 .body {
     background-color: lightslategray;
+    min-width: 865px;
 }
 /* title */
 .titleDiv {
-    margin: 0 auto;
     text-align: center;
 }
 .title {
     font-size: 75px;
     color: black;
+}
+.titleUnderlineDiv {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 2px;
 }
 /* display */
 .displayDiv {
@@ -51,4 +40,12 @@
 .displayImg {
     float: left;
     width: 30%;
+}
+/* SubHeading */
+.subHeading {
+    font-size: 40px;
+}
+.subHeadingDiv {
+    text-align: center;
+    border-bottom: 1px dashed black;
 }

@@ -102,3 +102,5 @@ function keyPush(evt) {
 
 document.addEventListener("keydown", keyPush);
 setInterval(game, 1000 / 15); // 15 fps
+
+// Read from file
