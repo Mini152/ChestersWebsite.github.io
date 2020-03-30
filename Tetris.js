@@ -216,6 +216,7 @@ function colourTile(i, j) {
             createTile(i, j);
             break;
         case 8:
+            //lightslategrey
             context.fillStyle = "lightslategrey";
             createTile(i, j);
             break;
@@ -263,34 +264,46 @@ function newPiece() {
 //piece rotation
 
 function rotatePiece() {
-    //create array
-    var temp = Array(3);
-    for (let j = 0; j < 3; j++) {
-        temp[j] = Array(3);
-    }
-    //initialise array
+    clearPieceArray();
+    var boardY = 0;
     for (let j = 0; j < 3; j++) {
         for (let i = 0; i < 3; i++) {
-            temp[j][i] = 0;
-        }
-    }
-    pieceArray[0][2] = board[activePiece.y - 1][activePiece.x - 1];
-    pieceArray[1][2] = board[activePiece.y - 1][activePiece.x];
-    pieceArray[2][2] = board[activePiece.y - 1][activePiece.x + 1];
-    pieceArray[0][1] = board[activePiece.y][activePiece.x - 1];
-    pieceArray[1][1] = board[activePiece.y][activePiece.x];
-    pieceArray[2][1] = board[activePiece.y][activePiece.x + 1];
-    pieceArray[0][0] = board[activePiece.y + 1][activePiece.x - 1];
-    pieceArray[1][0] = board[activePiece.y + 1][activePiece.x];
-    pieceArray[2][0] = board[activePiece.y + 1][activePiece.x + 1];
-    //output array
-    for (let j = 0; j < 3; j++) {
-        for (let i = 0; i < 3; i++) {
-            board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] = pieceArray[j][i];
+            if (i == 0) {
+                boardY = 2;
+            } else if (i == 2) {
+                boardY = 0;
+            } else {
+                boardY = 1;
+            }
+            //if (rotateOnly9s((activePiece.x - 1) + j, (activePiece.y - 1) + boardY)) {
+                pieceArray[j][i] = board[(activePiece.y - 1) + boardY][(activePiece.x - 1) + j];                
+            //}
+
         }
     }
 
+    //pieceArray[0][2] = board[activePiece.y - 1][activePiece.x - 1]; // 0, 0
+    //pieceArray[1][2] = board[activePiece.y - 1][activePiece.x]; // 0, 1
+    //pieceArray[2][2] = board[activePiece.y - 1][activePiece.x + 1]; // 0, 2
+    //pieceArray[0][1] = board[activePiece.y][activePiece.x - 1]; // 1, 0
+    //pieceArray[1][1] = board[activePiece.y][activePiece.x]; // 1, 1
+    //pieceArray[2][1] = board[activePiece.y][activePiece.x + 1]; // 1, 2
+    //pieceArray[0][0] = board[activePiece.y + 1][activePiece.x - 1]; // 2, 0
+    //pieceArray[1][0] = board[activePiece.y + 1][activePiece.x]; // 2, 1
+    //pieceArray[2][0] = board[activePiece.y + 1][activePiece.x + 1]; // 2, 2
+    //output array
+    clearTrailingPieces();
+    createActivePiece();
 }
+
+function rotateOnly9s(i, j) {
+    if (board[j][i] == 9) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 //create & clear activePiece
 
@@ -315,18 +328,11 @@ function clearTrailingPieces() {
 function createActivePiece() {
     for (let j = 0; j < 3; j++) {
         for (let i = 0; i < 3; i++) {
-            if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 0) {
+            if (pieceArray[j][i] == 9) {
                 board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] = pieceArray[j][i];
             } else {
                 board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] = board[(activePiece.y - 1) + j][(activePiece.x - 1) + i];
             }
-
-
-            //if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] != 0) {
-            //    board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] = board[(activePiece.y - 1) + j][(activePiece.x - 1) + i];
-            //} else {
-            //    board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] = pieceArray[j][i];
-            //}
         }
     }
 }
@@ -367,6 +373,25 @@ function checkCrossedBorder() {
     }
 }
 
+//piece movement collision
+
+//need to make it for each indiviual piece
+function blockVerticalMovement(movement) {
+    for (let j = 0; j < 3; j++) {
+        if (activePiece.x - 2 > 0) {
+            if (board[(activePiece.y - 1) + j][activePiece.x - 2] != 0 && movement == -1) {
+                return true;
+            }
+        }
+        if (activePiece.x + 2 < 9) {
+            if (board[(activePiece.y - 1) + j][activePiece.x + 2] != 0 && movement == 1) {
+                return true;
+            }            
+        }
+    }
+    return false;
+}
+
 //piece and floor collision
 
 function convertActivePieceToNum() {
@@ -393,11 +418,9 @@ function collision() {
     for (let j = 0; j < 19; j++) {
         for (let i = 0; i < 10; i++) {
             if (board[j][i] == 9) {
-                for (let z = 1; z < 9; z++) {
-                    if (board[j + 1][i] == z) {
-                        return true;
-                    }                     
-                }
+                if (board[j + 1][i] != 0 && board[j + 1][i] != 9) {
+                    return true;
+                }                     
             }
         }
     }
@@ -417,26 +440,6 @@ function drop1Block() {
     }
 }
 
-//routine checking commands
-
-function checkFor9s() {
-    var count = 0;
-    for (let j = 0; j < 19; j++) {
-        for (let i = 0; i < 10; i++) {
-            if (board[j][i] == 9) {
-                count++;
-            }
-        }
-    }
-    if (count == 0) {
-        newBlock();
-    }
-    if (count < 3 || count > 4) {
-        clearTrailingPieces();
-        newBlock();
-    }
-}
-
 //game running
 
 function newBlock() {
@@ -450,7 +453,6 @@ function newBlock() {
 newBlock();
 
 body.addEventListener('keypress', function (event) {
-    checkFor9s();
     switch (event.key) {
         case "w": case "W":
             if (checkCrossedBorder()) {
@@ -463,7 +465,7 @@ body.addEventListener('keypress', function (event) {
             drop1Block();
             break;
         case "a": case "A":
-            if (detectSideBorders(-1)) {
+            if (detectSideBorders(-1) && !blockVerticalMovement(-1)) {
                 activePiece.x--;
                 clearTrailingPieces();
                 createActivePiece();
@@ -471,7 +473,7 @@ body.addEventListener('keypress', function (event) {
             }
             break;
         case "d": case "D":
-            if (detectSideBorders(1)) {
+            if (detectSideBorders(1) && !blockVerticalMovement(1)) {
                 activePiece.x++;
                 clearTrailingPieces();
                 createActivePiece();
