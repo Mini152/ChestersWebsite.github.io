@@ -259,6 +259,8 @@ function newPiece() {
             activePiece = red;
             break;
     }
+    activePiece.y = 1; 
+    activePiece.x = 5;
 }
 
 //piece rotation
@@ -275,10 +277,9 @@ function rotatePiece() {
             } else {
                 boardY = 1;
             }
-            //if (rotateOnly9s((activePiece.x - 1) + j, (activePiece.y - 1) + boardY)) {
+            if (rotateOnly9s(((activePiece.x - 1) + j), ((activePiece.y - 1) + boardY))) {
                 pieceArray[j][i] = board[(activePiece.y - 1) + boardY][(activePiece.x - 1) + j];                
-            //}
-
+            }
         }
     }
 
@@ -292,8 +293,9 @@ function rotatePiece() {
     //pieceArray[1][0] = board[activePiece.y + 1][activePiece.x]; // 2, 1
     //pieceArray[2][0] = board[activePiece.y + 1][activePiece.x + 1]; // 2, 2
     //output array
-    clearTrailingPieces();
-    createActivePiece();
+    remove9s();
+
+    //createActivePiece();
 }
 
 function rotateOnly9s(i, j) {
@@ -315,7 +317,7 @@ function createInitialActivePiece() {
     createActivePiece();
 }
 
-function clearTrailingPieces() {
+function remove9s() {
     for (let j = 0; j < 20; j++) {
         for (let i = 0; i < 10; i++) {
             if (board[j][i] == 9) {
@@ -330,9 +332,9 @@ function createActivePiece() {
         for (let i = 0; i < 3; i++) {
             if (pieceArray[j][i] == 9) {
                 board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] = pieceArray[j][i];
-            } else {
-                board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] = board[(activePiece.y - 1) + j][(activePiece.x - 1) + i];
-            }
+            }// else {
+            //    board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] = board[(activePiece.y - 1) + j][(activePiece.x - 1) + i];
+            //}
         }
     }
 }
@@ -347,7 +349,7 @@ function clearPieceArray() {
     }
 }
 
-//border detection
+//border & piece collision detection
 
 function detectSideBorders(movement) {
     if ((board[activePiece.y - 1][9] == 9 || board[activePiece.y][9] == 9 || board[activePiece.y + 1][9] == 9) && movement == 1) {
@@ -373,21 +375,71 @@ function checkCrossedBorder() {
     }
 }
 
-//piece movement collision
-
-//need to make it for each indiviual piece
 function blockVerticalMovement(movement) {
+    //gets stuck on right
     for (let j = 0; j < 3; j++) {
-        if (activePiece.x - 2 > 0) {
-            if (board[(activePiece.y - 1) + j][activePiece.x - 2] != 0 && movement == -1) {
-                return true;
+        for (let i = 0; i < 3; i++) {
+            if (activePiece.x - 2 > 0 && movement == -1) {
+                if (pieceArrayLeftClear()) {
+                    //-2
+                    if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
+                        if ((board[(activePiece.y - 1) + j][(activePiece.x - 2) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x - 2) + i] != 9)) {
+                            return true;
+                        }
+                    }
+                } else {
+                    //-1
+                    if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
+                        if ((board[(activePiece.y - 1) + j][(activePiece.x - 2) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x - 2) + i] != 9) && movement == -1) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            if (activePiece.x + 2 < 9 && movement == 1) {
+                if (pieceArrayRightClear()) {
+                    //2
+                    if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
+                        if ((board[(activePiece.y - 1) + j][(activePiece.x + 1) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x + 1) + i] != 9)) {
+                            return true;
+                        }
+                    }
+                } else {
+                    //1
+                    if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
+                        if ((board[(activePiece.y - 1) + j][(activePiece.x) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x) + i] != 9) && movement == 1) {
+                            return true;
+                        }
+                    }
+                }
             }
         }
-        if (activePiece.x + 2 < 9) {
-            if (board[(activePiece.y - 1) + j][activePiece.x + 2] != 0 && movement == 1) {
-                return true;
-            }            
+    }
+    return false;
+}
+
+function pieceArrayLeftClear() {
+    var count = 0;
+    for (let j = 0; j < 3; j++) {
+        if (pieceArray[j][0] == 9) {
+            count++;
         }
+    }
+    if (count == 0) {
+        return true;
+    }
+    return false;
+}
+
+function pieceArrayRightClear() {
+    var count = 0;
+    for (let j = 0; j < 3; j++) {
+        if (pieceArray[j][2] == 9) {
+            count++;
+        }
+    }
+    if (count == 0) {
+        return true;
     }
     return false;
 }
@@ -431,12 +483,57 @@ function collision() {
 
 function drop1Block() {
     if (collision()) {
+        checkForFullRow();
         newBlock();
     } else {
         activePiece.y++;
-        clearTrailingPieces();
+        remove9s();
         createActivePiece();
-        renderBoard();  
+        renderBoard();        
+    }
+}
+
+// routine checking procedures
+
+function routineCheckingProcedures() {
+    checkGameEnding();
+}
+
+function checkGameEnding() {
+    for (let i = 0; i < 9; i++) {
+        if (board[2][i] != 0 && board[2][i] != 9) {
+            clearInterval(gameInterval);
+            alert('Game Over');
+            window.location.reload();
+            break;
+        }
+    }
+}
+
+function checkForFullRow() {
+    var count = 0;
+    var row = 0;
+    for (let j = 0; j < 18; j++) {
+        for (let i = 0; i < 9; i++) {
+            if (board[j][i] != 0) {
+                count++;
+            }
+            if (count == 10) {
+                row = j;
+                break;
+            }            
+        }
+        count = 0;
+    }
+    if (count == 10) {
+        for (let j = row; j > 0; j--) {
+            for (let i = 0; i < 9; i++) {
+                board[j + 1][i] = board[j][i]
+            }
+        }
+        checkForFullRow();
+    } else {
+        return;
     }
 }
 
@@ -450,15 +547,24 @@ function newBlock() {
     renderBoard();
 }
 
+function game() {
+    drop1Block();
+    routineCheckingProcedures();
+}
+
 newBlock();
+var gameInterval = setInterval(game, 1000/ 3);
 
 body.addEventListener('keypress', function (event) {
+    routineCheckingProcedures();
     switch (event.key) {
         case "w": case "W":
             if (checkCrossedBorder()) {
-                rotatePiece();
-                createActivePiece();
-                renderBoard();
+                if (activePiece.y < 18) {
+                    rotatePiece();
+                    createActivePiece();
+                    renderBoard();                    
+                }
             }
             break;
         case "s": case "S":
@@ -467,7 +573,7 @@ body.addEventListener('keypress', function (event) {
         case "a": case "A":
             if (detectSideBorders(-1) && !blockVerticalMovement(-1)) {
                 activePiece.x--;
-                clearTrailingPieces();
+                remove9s();
                 createActivePiece();
                 renderBoard();
             }
@@ -475,7 +581,7 @@ body.addEventListener('keypress', function (event) {
         case "d": case "D":
             if (detectSideBorders(1) && !blockVerticalMovement(1)) {
                 activePiece.x++;
-                clearTrailingPieces();
+                remove9s();
                 createActivePiece();
                 renderBoard();
             }
@@ -495,4 +601,4 @@ body.addEventListener('keypress', function(event) {
         }
         console.log(count);
     }
-})
+});
