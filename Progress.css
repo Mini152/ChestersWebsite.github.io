@@ -1,0 +1,45 @@
+.Body {
+    background-color: lightslategray;
+}
+
+.MainDiv {
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Progress Bar */
+.ProgressDiv {
+    padding-bottom: 80px;
+}
+
+.Progress {
+    width: 60%;
+    height: 20px;
+    background-color: white;
+}
+/* Title */
+.TitleDiv {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.Title {
+    font-size: 80px;
+}
+
+/* Subtitle */
+
+.SubtitleDiv {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.Subtitle {
+    font-size: 20px;
+}
+
+/* Item Title */
+
+.ProgTitle {
+    font-size: 22px;
+}

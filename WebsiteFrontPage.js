@@ -74,8 +74,10 @@ BtnLink7.addEventListener('auxclick', function () {
 });
 //BtnLink8
 BtnLink8.addEventListener('click', function () {
-
+    window.location.href = 'Progress.html';
 });
 BtnLink8.addEventListener('auxclick', function () {
-
+    if (event.which == 2) {
+        window.open('Progress.html');
+    }
 });
