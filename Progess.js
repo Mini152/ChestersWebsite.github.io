@@ -1,36 +1,22 @@
 var dateTime = new Date;
-
-//var progValue = {
-//    Minute: dateTime.getSeconds(),
-//    Hour: dateTime.getMinutes(),
-//    Day: dateTime.getHours(),
-//    Week: dateTime.getDay(),
-//    Month: 1,
-//    Year: dateTime.getMonth()
-//}
-
-var progBars = ["pgMinute", "pgHour", "pgDay", "pgWeek", "pgMonth", "pgYear"];
-var progVal = [0, 0, 0, 0, 0, 0];
-var progMax = [60, 60, 24, 7, 0, 12];
+var daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]; // days in each month of the year
 
 var time = {
     seconds: dateTime.getSeconds(),
     minutes: dateTime.getMinutes(),
     hours: dateTime.getHours(),
-    days: dateTime.getDay(),
-    daysOfTheMonth: dateTime.getDate(),
-    weeks: 0,
+    days: dateTime.getDate(),
     months: dateTime.getMonth(),
     years: dateTime.getFullYear()
 }
 
+var progBars = ["pgMinute", "pgHour", "pgDay", "pgMonth", "pgYear"];
+var progVal = [0, 0, 0, 0, 0];
+var progMax = [60, 60, 24, daysInMonths[time.months], 12];
+
+
 //work out the dateTime
 
-var daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-function getDate() {
-    
-}
 
 function increamentSeconds() {
     if (time.seconds == 60) {
@@ -60,13 +46,10 @@ function increamentHours() {
 }
 
 function increamentDays() {
-    if (time.day == 7) {
+    if (time.day == daysInMonths[time.months]) {
         time.day = 0;
-        return;
-    }
-    if (time.daysOfTheMonth == daysInMonths[time.months]) {
         increamentMonths();
-        time.daysOfTheMonth = 0;
+        return;
     }
     time.day++;
 }
@@ -82,7 +65,7 @@ function increamentMonths() {
 }
 
 function increamentYears() {
-    years++;
+    time.years++;
 }
 
 
@@ -100,16 +83,16 @@ function updateDay() {
     progVal[2] = time.hours;
 }
 
-function updateWeek() {
+//function updateWeek() {
+//    progVal[3] = time.days;
+//}
+
+function updateMonth() {
     progVal[3] = time.days;
 }
 
-function updateMonth() {
-    progVal[4] = time.weeks;
-}
-
 function updateYear() {
-    progVal[5] = time.months;
+    progVal[4] = time.months;
 }
 
 // prog
@@ -138,7 +121,7 @@ function updateProg() {
     updateMinute();
     updateHour();
     updateDay();
-    updateWeek();
+    //updateWeek();
     updateMonth();
     updateYear();
 }
@@ -151,10 +134,8 @@ function renderProg() {
 }
 
 function updateAndRenderLoop() {
-    console.log("Re-Render");
     updateProg();
     renderProg();
-    //window.location.reload()
 }
 
 updateAndRenderLoop();
