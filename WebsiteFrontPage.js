@@ -7,6 +7,7 @@ var BtnLink5 = document.getElementById('btnLink5');
 var BtnLink6 = document.getElementById('btnLink6');
 var BtnLink7 = document.getElementById('btnLink7');
 var BtnLink8 = document.getElementById('btnLink8');
+var BtnLink9 = document.getElementById('btnLink9');
 
 //Buttons
 //BtnLink1
@@ -79,5 +80,14 @@ BtnLink8.addEventListener('click', function () {
 BtnLink8.addEventListener('auxclick', function () {
     if (event.which == 2) {
         window.open('Progress.html');
+    }
+});
+//BtnLink9
+BtnLink9.addEventListener('click', function () {
+    window.location.href = 'Comment.html';
+});
+BtnLink9.addEventListener('auxclick', function () {
+    if (event.which == 2) {
+        window.open('Comment.html');
     }
 });

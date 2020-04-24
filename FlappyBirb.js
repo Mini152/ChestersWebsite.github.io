@@ -1,5 +1,5 @@
 const canvas = document.getElementById('canvas');
-const body = document.getElementById('Body');
+const body = document.getElementById('body');
 const context = canvas.getContext('2d');
 
 var leftMostPole = 100;

@@ -1,9 +1,9 @@
-.Div {
+.div {
     margin: 0 auto;
     text-align: center;
 }
 
-.Canvas {
+.canvas {
     width: 800px;  
     height: 400px;
     background-color: lightblue;

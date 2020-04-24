@@ -129,7 +129,11 @@ function render(canvId, value, max) {
 
 function renderProgPerc(canvID, value, max) {
     const perc = document.getElementById(canvID + "Perc");
-    perc.innerText = Math.round((value / max) * 100) + "%";
+    var percent = Math.round((value / max) * 100);
+    if (percent > 100) {
+        percent = 100;
+    }
+    perc.innerText = percent + "%";
 }
 
 function clear(canvId) {

@@ -85,12 +85,12 @@ function decrementEnergy() {
 }
 
 function updateEnergy() {
-    var element = document.getElementById('Energy');
+    var element = document.getElementById('energy');
     element.innerText = "Energy: " + Energy + ";";
 }
 
 function updateScore() {
-    var element = document.getElementById('Score');
+    var element = document.getElementById('score');
     element.innerText = "Score: " + Score;
 }
 
