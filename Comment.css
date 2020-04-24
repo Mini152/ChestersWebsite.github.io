@@ -1,0 +1,89 @@
+.body {
+    background-color: lightslategray;
+}
+
+/* Make Comment */
+
+.makeCommentDiv {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.makeCommentTitle {
+    font-size: 30px;
+}
+
+.nameTxt {
+    background-color: lightslategray;
+    border-color: black;
+    border-width: 1px;
+    width: 266px;
+}
+
+.commentTxt {
+    background-color: lightslategray;
+    border-color: black;
+    resize: none;
+}
+
+.sendBtn {
+    background-color: lightslategray;
+    border-color: black;
+    cursor: pointer;
+    width: 100px;
+    height: 30px;
+}
+
+.sendBtn:hover {
+    background-color: slategray;
+}
+
+.errorLbl {
+    visibility: hidden;
+    font-size: 25px;
+}
+
+/* Disp Comments */
+
+.prevCommentsSubtitleDiv {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.prevCommentSubtitle {
+    font-size: 20px;
+}
+
+.commentDiv {
+    /* formatting */
+    background-color: white;
+    width: 600px;
+    /* border style */
+    border: 2px;
+    border-color: black;
+    /* center align */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.userTimeDiv {
+    /*padding-right: 405px;*/
+    margin-left: 10px;
+    float: left;
+}
+
+.commentUsername {
+    /*margin-right: 500px;*/
+}
+
+.commentTime {
+    font-size: 15px;
+    /*margin-right: 480px;*/
+    /*padding-left: 100px;*/
+}
+
+.commentMessage {
+    resize: none;
+    border: 0px;
+}
+
