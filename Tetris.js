@@ -375,7 +375,7 @@ function checkCrossedBorder() {
     }
 }
 
-function blockVerticalMovement(movement) {
+function blockHorizontalMovement(movement) {
     //gets stuck on right
     for (let j = 0; j < 3; j++) {
         for (let i = 0; i < 3; i++) {
@@ -513,28 +513,35 @@ function checkGameEnding() {
 function checkForFullRow() {
     var count = 0;
     var row = 0;
-    for (let j = 0; j < 18; j++) {
-        for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 19; j++) {
+        for (let i = 0; i < 10; i++) {
             if (board[j][i] != 0) {
                 count++;
             }
-            if (count == 10) {
-                row = j;
-                break;
-            }            
         }
+        if (count == 10) {
+            row = j;
+            for (let i = 0; i < 9; i++) {
+                board[row][i] = 0;
+            }
+            for (let z = row - 1; z > 0; z--) {
+                for (let i = 0; i < 9; i++) {
+                    
+                    board[z + 1][i] = board[z][i];
+                }
+            }
+            checkForFullRow();                      
+            break;
+        }          
         count = 0;
     }
-    if (count == 10) {
-        for (let j = row; j > 0; j--) {
-            for (let i = 0; i < 9; i++) {
-                board[j + 1][i] = board[j][i]
-            }
-        }
-        checkForFullRow();
-    } else {
-        return;
-    }
+
+
+    //if (count == 10) {
+
+    //} else {
+    //    return;
+    //}
 }
 
 //game running
@@ -571,7 +578,7 @@ body.addEventListener('keypress', function (event) {
             drop1Block();
             break;
         case "a": case "A":
-            if (detectSideBorders(-1) && !blockVerticalMovement(-1)) {
+            if (detectSideBorders(-1) && !blockHorizontalMovement(-1)) {
                 activePiece.x--;
                 remove9s();
                 createActivePiece();
@@ -579,7 +586,7 @@ body.addEventListener('keypress', function (event) {
             }
             break;
         case "d": case "D":
-            if (detectSideBorders(1) && !blockVerticalMovement(1)) {
+            if (detectSideBorders(1) && !blockHorizontalMovement(1)) {
                 activePiece.x++;
                 remove9s();
                 createActivePiece();
