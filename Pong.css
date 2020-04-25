@@ -1,0 +1,15 @@
+.div {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.canvas {
+    background-color: black;
+}
+.canvas:hover {
+    cursor: default
+}
+
+.body {
+    background-color: lightslategray;
+}
