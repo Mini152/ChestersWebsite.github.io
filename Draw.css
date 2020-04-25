@@ -1,0 +1,44 @@
+.titleDiv {
+    position: relative;
+    margin:0 auto;
+    text-align: center;
+    background-color: lightslategray;
+    height: 120px;
+    width: 763px;
+}
+
+.title {
+    font-size: 100px;
+    color: rgba(3, 3, 3, 0.880);
+}
+
+.canvas {
+    position: relative;
+    margin:0 auto;
+    width: 800px;
+    height:700px;
+    background-color: rgb(240, 240, 240);
+    display: flex;
+    align-items: center;
+}
+
+.btnDiv {
+    position: relative;
+    margin:0 auto;
+    text-align: center;
+    background-color: lightslategray;
+}
+
+.btns {
+    font-size: 25px;
+    margin: 5px;
+    background-color: lightslategray;
+    border-color: black;
+}
+
+.coordDiv {
+    position: relative;
+    margin:0 auto;
+    text-align: center;
+    background-color: lightslategray;
+}
