@@ -1,25 +1,29 @@
 const btnSend = document.getElementById("btnSend");
 var txtName = document.getElementById("txtName");
-var txtComment = document.getElementById("txtComment");
+var txtNote = document.getElementById("txtNote");
 var lblError = document.getElementById("lblError");
 
 const dateTime = new Date;
 
-// create comment & store
-function sendCommentRequest() {
+// create note & store
+function sendNoteRequest() {
     //get data out of txt
     var name = txtName;
-    var comment = txtComment;
+    var note = txtNote;
 
     //check if values are null
     if (name.value == "") {
+        //lblError.style.color = "red";
+        //lblError.innerText = "Error: name cannot be null";        
+        //lblError.style.visibility = "visible";
+        //return;
+        lblError.style.color = "black";
+        lblError.innerText = "Error:";
+        lblError.style.visibility = "hidden";
+        name.value = "n/a"
+    } else if (note.value == "") {
         lblError.style.color = "red";
-        lblError.innerText = "Error: name cannot be null";        
-        lblError.style.visibility = "visible";
-        return;
-    } else if (comment.value == "") {
-        lblError.style.color = "red";
-        lblError.innerText = "Error: comment cannot be null";        
+        lblError.innerText = "Error: note cannot be null";        
         lblError.style.visibility = "visible";
         return;
     } else {
@@ -34,9 +38,9 @@ function sendCommentRequest() {
         lblError.innerText = "Error: name contains a profanity";
         lblError.style.visibility = "visible";
         return;
-    } else if (profanityFilter(comment.value)) {
+    } else if (profanityFilter(note.value)) {
         lblError.style.color = "red";
-        lblError.innerText = "Error: comment contains a profanity";
+        lblError.innerText = "Error: note contains a profanity";
         lblError.style.visibility = "visible";
         return;
     } else {
@@ -51,9 +55,9 @@ function sendCommentRequest() {
         lblError.innerText = "Error: name is too long, " + name.value.length + "/30 characters";
         lblError.style.visibility = "visible";
         return;
-    } else if (comment.value.length > 250) {
+    } else if (note.value.length > 250) {
         lblError.style.color = "red";
-        lblError.innerText = "Error: comment length is too long, " + comment.value.length + "/250 characters";
+        lblError.innerText = "Error: note length is too long, " + note.value.length + "/250 characters";
         lblError.style.visibility = "visible";
         return;
     } else {
@@ -68,9 +72,9 @@ function sendCommentRequest() {
         lblError.innerText = "Error: name contains an underscore";
         lblError.style.visibility = "visible";
         return;
-    } else if (comment.value.includes("_")) {
+    } else if (note.value.includes("_")) {
         lblError.style.color = "red";
-        lblError.innerText = "Error: comment contains and underscore";
+        lblError.innerText = "Error: note contains and underscore";
         lblError.style.visibility = "visible";
         return;
     } else {
@@ -80,7 +84,7 @@ function sendCommentRequest() {
     }
 
 
-    //get time of comment
+    //get time of note
     var hour = dateTime.getHours();
     var minute = dateTime.getMinutes();
     var day = dateTime.getDate();
@@ -98,18 +102,18 @@ function sendCommentRequest() {
     if (month < 10) {
         month = "0" + month;
     }
-    var commentTime = hour + ":" + minute + "  " + day + "/" + month + "/" + year;
+    var noteTime = hour + ":" + minute + "  " + day + "/" + month + "/" + year;
     
 
     //store data
-    var commentNumber = localStorage.getItem("commentNumber");
-    localStorage.setItem("comment" + commentNumber, name.value + "_" + commentTime + "_" + comment.value);
-    commentNumber++;
-    localStorage.setItem("commentNumber", commentNumber);
+    var noteNumber = localStorage.getItem("noteNumber");
+    localStorage.setItem("note" + noteNumber, name.value + "_" + noteTime + "_" + note.value);
+    noteNumber++;
+    localStorage.setItem("noteNumber", noteNumber);
     window.location.reload();
 }
 
-btnSend.addEventListener("click", sendCommentRequest);
+btnSend.addEventListener("click", sendNoteRequest);
 
 // profanity filter
 
@@ -578,71 +582,71 @@ function profanityFilter(input) {
     return false;
 }
 
-// displaying the previous comments
+// displaying the previous notes
 
 // the js code below creates this html and inserts values
 
-//<div class="commentDiv">
+//<div class="noteDiv">
 //    <div class="userTimeDiv">
-//        <b id="lblCommentUsername" class="commentUsername">Name Here</b>
-//        <label id="lblCommentTime" class="commentTime">00:00  00/00/00</label>
+//        <b id="lblNoteUsername" class="noteUsername">Name Here</b>
+//        <label id="lblNoteTime" class="noteTime">00:00  00/00/00</label>
 //    </div>
-//    <textarea id="lblCommentMessage" class="commentMessage" readonly cols="80" rows="5">Comment here</textarea>
+//    <textarea id="lblNoteMessage" class="noteMessage" readonly cols="80" rows="5">Note here</textarea>
 //</div>
 //<br>
 
-function loadNewComment(username, time, comment) {
+function loadNewNote(username, time, note) {
     const body = document.getElementById("body");
-    var commentDiv = document.createElement("div"); //div
+    var noteDiv = document.createElement("div"); //div
     var userTimeDiv = document.createElement("div"); //div    
-    var commentUsername = document.createElement("b"); //b
-    var commentTime = document.createElement("label"); // label
-    var commentMessage = document.createElement("textarea"); //text area
+    var noteUsername = document.createElement("b"); //b
+    var noteTime = document.createElement("label"); // label
+    var noteMessage = document.createElement("textarea"); //text area
     var br = document.createElement("br"); //br
     // giving ids and class names
-    commentDiv.className = "commentDiv";
+    noteDiv.className = "noteDiv";
     userTimeDiv.className = "userTimeDiv";
-    //commentUsername.className = "commentUsername";
-    commentUsername.id = "lblCommentUsername";
-    commentTime.className = "commentTime";
-    commentTime.id = "lblCommentTime";
-    commentMessage.className = "commentMessage";
-    commentMessage.id = "lblCommentMessage";
-    commentMessage.readOnly = true;
-    commentMessage.cols = 80;
-    commentMessage.rows = 3;
+    //noteUsername.className = "noteUsername";
+    noteUsername.id = "lblNoteUsername";
+    noteTime.className = "noteTime";
+    noteTime.id = "lblNoteTime";
+    noteMessage.className = "noteMessage";
+    noteMessage.id = "lblNoteMessage";
+    noteMessage.readOnly = true;
+    noteMessage.cols = 80;
+    noteMessage.rows = 3;
     // appending
-    body.appendChild(commentDiv);
-    commentDiv.appendChild(userTimeDiv);
-    userTimeDiv.appendChild(commentUsername);
-    userTimeDiv.appendChild(commentTime);
-    commentDiv.appendChild(commentMessage);
+    body.appendChild(noteDiv);
+    noteDiv.appendChild(userTimeDiv);
+    userTimeDiv.appendChild(noteUsername);
+    userTimeDiv.appendChild(noteTime);
+    noteDiv.appendChild(noteMessage);
     body.appendChild(br);
     //making ids = parsed values
-    var lblUsername = document.getElementById("lblCommentUsername");
-    var lblTime = document.getElementById("lblCommentTime");
-    var lblMessage = document.getElementById("lblCommentMessage");
+    var lblUsername = document.getElementById("lblNoteUsername");
+    var lblTime = document.getElementById("lblNoteTime");
+    var lblMessage = document.getElementById("lblNoteMessage");
     lblUsername.innerText = username + "  -";
     lblTime.innerText = "-  " + time;
-    lblMessage.innerText = comment;
-    //clear ids so next comment can use them
-    commentUsername.id = "";
-    commentTime.id = "";
-    commentMessage.id = "";
+    lblMessage.innerText = note;
+    //clear ids so next note can use them
+    noteUsername.id = "";
+    noteTime.id = "";
+    noteMessage.id = "";
 }
 
-//loadNewComment("chester", "12:30  24/04/2020", "the quick brown fox jumped over the lazy dog");
-//loadNewComment("chester", "12:30  24/04/2020", "the quick brown fox jumped over the lazy dog");
+//loadNewNote("chester", "12:30  24/04/2020", "the quick brown fox jumped over the lazy dog");
+//loadNewNote("chester", "12:30  24/04/2020", "the quick brown fox jumped over the lazy dog");
 
-function createPrevComments() {
-    for (let i = 0; i < localStorage.commentNumber; i++) {
-        var commentString = localStorage.getItem("comment" + i);
+function createPrevNotes() {
+    for (let i = 0; i < localStorage.noteNumber; i++) {
+        var noteString = localStorage.getItem("note" + i);
         var emptyString = "";
         var name = "";
         var date = "";
-        var comment = "";
-        for (let j = 0; j < commentString.length; j++) {
-            if (commentString[j] == "_") {
+        var note = "";
+        for (let j = 0; j < noteString.length; j++) {
+            if (noteString[j] == "_") {
                 if (name == "") {
                     name = emptyString;
                     emptyString = "";
@@ -651,20 +655,19 @@ function createPrevComments() {
                     emptyString = "";
                 }
             } else {
-                emptyString += commentString[j];                
+                emptyString += noteString[j];                
             }
         }
-        comment = emptyString;
+        note = emptyString;
         emptyString = "";
-        loadNewComment(name, date, comment);
+        loadNewNote(name, date, note);
     }
 }
-createPrevComments();
-
+createPrevNotes();
 
 // TODO:
 // profanity filter - done
-// store comments - done
-// display prev comments, func parced name, date, comment, outputs comment - done
-// limit number of chars used in name and comment
-// disallow underscores from name and comment
+// store notes - done
+// display prev notes, func parced name, date, note, outputs note - done
+// limit number of chars used in name and note
+// disallow underscores from name and note

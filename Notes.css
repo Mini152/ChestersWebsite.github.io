@@ -2,14 +2,14 @@
     background-color: lightslategray;
 }
 
-/* Make Comment */
+/* Make Note */
 
-.makeCommentDiv {
+.makeNoteDiv {
     margin: 0 auto;
     text-align: center;
 }
 
-.makeCommentTitle {
+.makeNoteTitle {
     font-size: 30px;
 }
 
@@ -20,7 +20,7 @@
     width: 266px;
 }
 
-.commentTxt {
+.noteTxt {
     background-color: lightslategray;
     border-color: black;
     resize: none;
@@ -43,18 +43,18 @@
     font-size: 25px;
 }
 
-/* Disp Comments */
+/* Disp Notes */
 
-.prevCommentsSubtitleDiv {
+.prevNotesSubtitleDiv {
     margin: 0 auto;
     text-align: center;
 }
 
-.prevCommentSubtitle {
+.prevNoteSubtitle {
     font-size: 20px;
 }
 
-.commentDiv {
+.noteDiv {
     /* formatting */
     background-color: white;
     width: 600px;
@@ -72,17 +72,17 @@
     float: left;
 }
 
-.commentUsername {
-    /*margin-right: 500px;*/
-}
+/*.noteUsername {
+    margin-right: 500px;
+}*/
 
-.commentTime {
+.noteTime {
     font-size: 15px;
     /*margin-right: 480px;*/
     /*padding-left: 100px;*/
 }
 
-.commentMessage {
+.noteMessage {
     resize: none;
     border: 0px;
 }
