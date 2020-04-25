@@ -84,10 +84,10 @@ BtnLink8.addEventListener('auxclick', function () {
 });
 //BtnLink9
 BtnLink9.addEventListener('click', function () {
-    window.location.href = 'Comment.html';
+    window.location.href = 'Notes.html';
 });
 BtnLink9.addEventListener('auxclick', function () {
     if (event.which == 2) {
-        window.open('Comment.html');
+        window.open('Notes.html');
     }
 });
