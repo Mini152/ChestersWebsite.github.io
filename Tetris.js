@@ -35,7 +35,8 @@ const lightBlue = {
     piece3X: 1,
     //other
     colour: "lightblue",
-    colourNum: 1
+    colourNum: 1,
+    score: 3
 }
 const blue = {
     //pivot coords
@@ -50,7 +51,8 @@ const blue = {
     piece3X: 1,
     //other
     colour: "blue",
-    colourNum: 2
+    colourNum: 2,
+    score: 4
 }
 const orange = {
     //pivot coords
@@ -65,7 +67,8 @@ const orange = {
     piece3X: 1,
     //other
     colour: "orange",
-    colourNum: 3
+    colourNum: 3,
+    score: 4
 }
 const yellow = {
     //pivot coords
@@ -80,7 +83,8 @@ const yellow = {
     piece3X: 1,
     //other
     colour: "yellow",
-    colourNum: 4
+    colourNum: 4,
+    score: 4
 }
 const green = {
     //pivot coords
@@ -95,7 +99,8 @@ const green = {
     piece3X: 1,
     //other
     colour: "green",
-    colourNum: 5
+    colourNum: 5,
+    score: 4
 }
 const purple = {
     //pivot coords
@@ -110,7 +115,8 @@ const purple = {
     piece3X: 1,
     //other
     colour: "purple",
-    colourNum: 6
+    colourNum: 6,
+    score: 4
 }
 const red = {
     //pivot coords
@@ -125,10 +131,13 @@ const red = {
     piece3X: 1,
     //other
     colour: "red",
-    colourNum: 7
+    colourNum: 7,
+    score: 4
 }
 
 var activePiece;
+
+var score = 0;
 
 //create board array
 var board = new Array(20);
@@ -371,7 +380,7 @@ function checkCrossedBorder() {
             return false;
         }
     } else {
-        return true;
+    return true;        
     }
 }
 
@@ -484,6 +493,7 @@ function collision() {
 function drop1Block() {
     if (collision()) {
         checkForFullRow();
+        updateScore(activePiece.score);
         newBlock();
     } else {
         activePiece.y++;
@@ -526,10 +536,10 @@ function checkForFullRow() {
             }
             for (let z = row - 1; z > 0; z--) {
                 for (let i = 0; i < 9; i++) {
-                    
                     board[z + 1][i] = board[z][i];
                 }
             }
+            score += 10;
             checkForFullRow();                      
             break;
         }          
@@ -544,11 +554,19 @@ function checkForFullRow() {
     //}
 }
 
+// update score
+
+function updateScore(increment) {
+    var bScore = document.getElementById("bScore");
+    score += increment;
+    bScore.innerText = score;
+}
+
 //game running
 
 function newBlock() {
     convertActivePieceToNum();
-    clearPieceArray();
+    clearPieceArray(); 
     newPiece();
     createInitialActivePiece();
     renderBoard();
@@ -564,8 +582,8 @@ var gameInterval = setInterval(game, 1000/ 3);
 
 body.addEventListener('keypress', function (event) {
     routineCheckingProcedures();
-    switch (event.key) {
-        case "w": case "W":
+    switch (event.key || event.which) {
+        case "w": case "W": case 38:
             if (checkCrossedBorder()) {
                 if (activePiece.y < 18) {
                     rotatePiece();
@@ -574,10 +592,10 @@ body.addEventListener('keypress', function (event) {
                 }
             }
             break;
-        case "s": case "S":
+        case "s": case "S": case 40:
             drop1Block();
             break;
-        case "a": case "A":
+        case "a": case "A": case 37:
             if (detectSideBorders(-1) && !blockHorizontalMovement(-1)) {
                 activePiece.x--;
                 remove9s();
@@ -585,7 +603,7 @@ body.addEventListener('keypress', function (event) {
                 renderBoard();
             }
             break;
-        case "d": case "D":
+        case "d": case "D": case 39:
             if (detectSideBorders(1) && !blockHorizontalMovement(1)) {
                 activePiece.x++;
                 remove9s();

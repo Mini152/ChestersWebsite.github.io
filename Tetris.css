@@ -1,11 +1,23 @@
 .body {
     background-color: lightslategray;
 }
+
 .div {
     text-align: center;
+    margin: 0 auto;
 }
+
 .canvas {
     width: 400px;
     height: 800px;
     background-color: black;
+}
+
+.score {
+    font-size: 20px;
+}
+
+.scoreDiv {
+    text-align: center;
+    margin: 0 auto; 
 }
