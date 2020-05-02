@@ -1,0 +1,66 @@
+.body {
+    background-color: lightslategray;
+    min-width: 1000px;
+    width: 1000px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* month title */
+
+#divMonthTitle {
+    text-align: center;
+    margin: 0 auto;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+
+#bMonthTitle {
+    font-size: 50px;
+    margin-left: 70px;
+}
+
+/* week days */
+
+#divWeekDays {
+    text-align: center;    
+    margin: 0 auto;    
+}
+
+#lblWeekDays {
+    font-size: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+/* calender days display */
+
+#divCalendarDisplay {
+    height: fit-content;
+}
+
+/*#divWeek {
+    height: fit-content;
+}*/
+
+#divColumn {
+    float: left;
+    width: 130px;
+    margin-left: 6.4px;
+    margin-right: 6.4px;
+    height: 700px;
+}
+
+.divDay {
+    width: 120px;
+    height: 120px;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    border: 1px solid black;
+}
+
+.divDayTitle {
+    margin: 0 auto;
+    text-align: center;
+}
