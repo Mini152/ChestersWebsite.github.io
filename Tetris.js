@@ -136,7 +136,6 @@ const red = {
 }
 
 var activePiece;
-
 var score = 0;
 
 //create board array
