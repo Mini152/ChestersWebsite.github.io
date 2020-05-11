@@ -7,107 +7,15 @@ var BtnLink5 = document.getElementById('btnLink5');
 var BtnLink6 = document.getElementById('btnLink6');
 var BtnLink7 = document.getElementById('btnLink7');
 var BtnLink8 = document.getElementById('btnLink8');
-//var BtnLink9 = document.getElementById('btnLink9');
+var BtnLink9 = document.getElementById('btnLink9');
 var BtnLink10 = document.getElementById('btnLink10');
 var BtnLink11 = document.getElementById("btnLink11");
 
-//Buttons
-//BtnLink1
-BtnLink1.addEventListener('click', function () {
-    window.location.href = 'Draw.html';
-});
-BtnLink1.addEventListener('auxclick', function () {
-    if (event.which == 2) {
-        window.open('Draw.html');
-    }
-});
-//BtnLink2
-BtnLink2.addEventListener('click', function () {
-    window.location.href = 'Noughts&Crosses.html';
-});
-BtnLink2.addEventListener('auxclick', function () {
-    if (event.which == 2) {
-        window.open('Noughts&Crosses.html');
-    }
-});
-//BtnLink3
-BtnLink3.addEventListener('click', function () {
-    window.location.href = 'Grid Game.html';
-});
-BtnLink3.addEventListener('auxclick', function () {
-    if (event.which == 2) {
-        window.open('Grid Game.html');
-    }
-});
-//BtnLink4
-BtnLink4.addEventListener('click', function () {
-    window.location.href = 'Pong.html';
-});
-BtnLink4.addEventListener('auxclick', function () {
-    if (event.which == 2) {
-        window.open('Pong.html');
-    }
-});
-//BtnLink5
-BtnLink5.addEventListener('click', function () {
-    window.location.href = 'Snake.html';
-});
-BtnLink5.addEventListener('auxclick', function () {
-    if (event.which == 2) {
-        window.open('Snake.html');
-    }
-});
-//BtnLink6
-BtnLink6.addEventListener('click', function () {
-    window.location.href = 'FlappyBirb.html';
-});
-BtnLink6.addEventListener('auxclick', function () {
-    if (event.which == 2) {
-        window.open('FlappyBirb.html');
-    }
-});
-//BtnLink7
-BtnLink7.addEventListener('click', function () {
-    window.location.href = 'Tetris.html';
-});
-BtnLink7.addEventListener('auxclick', function () {
-    if (event.which == 2) {
-        window.open('Tetris.html');
-    }
-});
-//BtnLink8
-BtnLink8.addEventListener('click', function () {
-    window.location.href = 'Progress.html';
-});
-BtnLink8.addEventListener('auxclick', function () {
-    if (event.which == 2) {
-        window.open('Progress.html');
-    }
-});
-//BtnLink9
-//BtnLink9.addEventListener('click', function () {
-//    window.location.href = 'Notes.html';
-//});
-//BtnLink9.addEventListener('auxclick', function () {
-//    if (event.which == 2) {
-//        window.open('Notes.html');
-//    }
-//});
-//BtnLink10
-BtnLink10.addEventListener('click', function () {
-    window.location.href = 'Calendar.html';
-});
-BtnLink10.addEventListener('auxclick', function () {
-    if (event.which == 2) {
-        window.open('Calendar.html');
-    }
-});
-//BtnLink11
-BtnLink11.addEventListener('click', function() {
-    window.location.href = '3DSim.html';
-});
-BtnLink11.addEventListener('auxclick', function () {
-    if (event.which == 2) {
-        window.open('3DSim.html');
-    }
-});
+var links = [BtnLink1, BtnLink2, BtnLink3, BtnLink4, BtnLink5, BtnLink6, BtnLink7, BtnLink8, BtnLink9, BtnLink10, BtnLink11];
+var htmls = ["Draw.html", "Noughts&Crosses.html", "Grid Game.html", "Pong.html", "Snake.html", "FlappyBirb.html", "Tetris.html", "Progress.html", "Calender.html", "3DSim.html", "Picker.html"];
+
+for (let i = 0; i < links.length; i++) {
+    links[i].addEventListener("click", () => {
+        window.location.href = htmls[i];
+    });
+}

@@ -1,0 +1,76 @@
+.body {
+    background-color: lightslategray;
+}
+
+/* title */
+
+.divTitle {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.bTitle {
+    font-size: 75px;
+}
+
+/* choices */
+
+.divAdd {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#lblChoices {
+    font-size: 22px;
+    padding-right: 20px;
+}
+
+#btnAddChoice {
+    background-color: lightslategray;
+    border-color: black;
+    border: 1px, solid;
+    cursor: pointer;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+}
+
+#btnAddChoice:hover {
+    background-color: slategray;
+}
+
+#btnClear {
+    background-color: lightslategray;
+    border-color: black;
+    border: 1px, solid;
+    cursor: pointer;
+    font-size: 20px;
+    height: 30px;
+}
+
+#btnClear:hover {
+    background-color: slategray;
+}
+
+#btnPick {
+    background-color: lightslategray;
+    border-color: black;
+    border: 1px, solid;
+    cursor: pointer;
+    width: 300px;
+}
+
+#btnPick:hover {
+    background-color: slategray;
+}
+
+/* result */
+
+.divResult {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#lblResult {
+    font-size: 30px;
+}

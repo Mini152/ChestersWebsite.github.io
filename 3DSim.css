@@ -4,6 +4,11 @@
 
 /* canvas */
 
+.divCanvas {
+    border-color: black;    
+    border: 1px, solid, black;
+}
+
 #canvas {
     height:100%;
     position:fixed;

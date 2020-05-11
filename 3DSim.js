@@ -1,30 +1,30 @@
 // code adapted from pothonprogramming - https://github.com/pothonprogramming/pothonprogramming.github.io/blob/master/content/cube/cube.html
 
 // defining shapes
-const Point2D = function(x, y) { this.x = x; this.y = y; };
-const Point3D = function(x, y, z) { this.x = x; this.y = y; this.z = z; };
+const Point2D = function (x, y) { this.x = x; this.y = y; };
+const Point3D = function (x, y, z) { this.x = x; this.y = y; this.z = z; };
 
 //cube
 
-const Cube = function(x, y, z, size) {
+const Cube = function (x, y, z, size) {
     Point3D.call(this, x, y, z);
-    
+
     this.vertices = [
-    new Point3D(x - size, y - size, z - size),
-    new Point3D(x + size, y - size, z - size),
-    new Point3D(x + size, y + size, z - size),
-    new Point3D(x - size, y + size, z - size),
-    new Point3D(x - size, y - size, z + size),
-    new Point3D(x + size, y - size, z + size),
-    new Point3D(x + size, y + size, z + size),
-    new Point3D(x - size, y + size, z + size)];
+        new Point3D(x - size, y - size, z - size),
+        new Point3D(x + size, y - size, z - size),
+        new Point3D(x + size, y + size, z - size),
+        new Point3D(x - size, y + size, z - size),
+        new Point3D(x - size, y - size, z + size),
+        new Point3D(x + size, y - size, z + size),
+        new Point3D(x + size, y + size, z + size),
+        new Point3D(x - size, y + size, z + size)];
     this.faces = [[0, 1, 2, 3], [0, 4, 5, 1], [1, 5, 6, 2], [3, 2, 6, 7], [0, 3, 7, 4], [4, 7, 6, 5]];
 }
 
 //cube rotation
 Cube.prototype = {
 
-    rotateX: function(radian) {
+    rotateX: function (radian) {
         var cosine = Math.cos(radian);
         var sine = Math.sin(radian);
 
@@ -38,7 +38,7 @@ Cube.prototype = {
         }
     },
 
-    rotateY: function(radian) {
+    rotateY: function (radian) {
         var cosine = Math.cos(radian);
         var sine = Math.sin(radian);
 
@@ -55,9 +55,9 @@ Cube.prototype = {
 
 //triangle
 
-const Triangle = function(x, y, z, size) {
+const Triangle = function (x, y, z, size) {
     Point3D.call(this, x, y, z);
-    
+
     //pythagorus --- sq = square
     var Asq = Math.pow(size, 2);
     var Bsq = Math.pow(size / 2, 2);
@@ -69,10 +69,10 @@ const Triangle = function(x, y, z, size) {
     var o = 149.8; //Math.sin(60) * c
 
     this.vertices = [
-    new Point3D(x, y  + size, z), // 0
-    new Point3D(x + c, y - (size / 2), z), // 1
-    new Point3D(x - a, y - (size / 2), z + o), // 2
-    new Point3D(x - a, y - (size / 2), z - o)]; // 3
+        new Point3D(x, y + size, z), // 0
+        new Point3D(x + c, y - (size / 2), z), // 1
+        new Point3D(x - a, y - (size / 2), z + o), // 2
+        new Point3D(x - a, y - (size / 2), z - o)]; // 3
     this.faces = [[0, 1, 2], [0, 2, 3], [0, 3, 1], [1, 2, 3]];
 }
 
@@ -163,10 +163,10 @@ const Pyramid = function (x, y, z, size) {
     Point3D.call(this, x, y, z);
 
     //pythagorus --- sq = square
-    var Asq = Math.pow(size, 2);
-    var Bsq = Math.pow(size / 2, 2);
-    var Csq = Asq - Bsq;
-    var c = Math.sqrt(Csq);
+    //var Asq = Math.pow(size, 2);
+    //var Bsq = Math.pow(size / 2, 2);
+    //var Csq = Asq - Bsq;
+    //var c = Math.sqrt(Csq);
 
     //SohCahToa trigonometry
     //var a = Math.cos(45) * c; // 122.47
@@ -175,7 +175,7 @@ const Pyramid = function (x, y, z, size) {
     var o = size / 2;
 
     this.vertices = [
-        new Point3D(x, y + size, z), // 0
+        new Point3D(x, y + size / 2, z), // 0
         new Point3D(x + o, y - (size / 2), z + a), // 1
         new Point3D(x - o, y - (size / 2), z + a), // 2
         new Point3D(x - o, y - (size / 2), z - a), // 3
@@ -265,11 +265,16 @@ Trapezium.prototype = {
     }
 }
 
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 // main variable decleration
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
 
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 var pointer = new Point2D(0, 0);
+
 var cube = new Cube(0, 0, 400, 150);
 var triangle = new Triangle(0, 0, 300, 200);
 var parallelogram = new Parallelogram(0, 0, 400, 150, 100);
@@ -533,8 +538,8 @@ function resetBtns() {
 canvas.addEventListener("mousemove", (event) => {
     if (mouseDown) {
         pointer.x = event.pageX - (width / 2);
-        pointer.y = event.pageY - (height / 2);        
-    }  
+        pointer.y = event.pageY - (height / 2);
+    }
 });
 
 canvas.addEventListener("mousedown", () => {
@@ -548,5 +553,5 @@ canvas.addEventListener("mouseup", () => {
     canvas.style.cursor = "default";
     mouseDown = false;
     pointer.x = 0;
-    pointer.y = 0; 
+    pointer.y = 0;
 });
