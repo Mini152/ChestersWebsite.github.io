@@ -14,6 +14,7 @@ function addChoice() {
 function clearChoices() {
     choices = [];
     lblChoices.innerText = 0;
+    lblResult.innerText = "";
 }
 
 function pick() {
