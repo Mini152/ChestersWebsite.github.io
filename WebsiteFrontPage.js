@@ -12,7 +12,7 @@ var BtnLink10 = document.getElementById('btnLink10');
 var BtnLink11 = document.getElementById("btnLink11");
 
 var links = [BtnLink1, BtnLink2, BtnLink3, BtnLink4, BtnLink5, BtnLink6, BtnLink7, BtnLink8, BtnLink9, BtnLink10, BtnLink11];
-var htmls = ["Draw.html", "Noughts&Crosses.html", "Grid Game.html", "Pong.html", "Snake.html", "FlappyBirb.html", "Tetris.html", "Progress.html", "Calender.html", "3DSim.html", "Picker.html"];
+var htmls = ["Draw.html", "Noughts&Crosses.html", "Grid Game.html", "Pong.html", "Snake.html", "FlappyBirb.html", "Tetris.html", "Progress.html", "Calendar.html", "3DSim.html", "Picker.html"];
 
 for (let i = 0; i < links.length; i++) {
     links[i].addEventListener("click", () => {
