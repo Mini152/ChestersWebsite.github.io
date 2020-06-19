@@ -34,6 +34,10 @@
     margin: 5px;
     background-color: lightslategray;
     border-color: black;
+    cursor: pointer;
+}
+.btns:hover {
+    background-color: slategray;
 }
 
 .coordDiv {

@@ -626,3 +626,6 @@ body.addEventListener('keypress', function(event) {
         console.log(count);
     }
 });
+
+// personal highscore leaderboard (computer based)
+

@@ -1,0 +1,89 @@
+.body {
+    background-color: lightslategray;
+}
+
+/* menu */
+
+#divMenu {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    z-index: 3;
+}
+
+.bMenuTitle {
+    font-size: 30px;
+}
+
+.lblMenuDesc {
+    font-size: 20px;
+}
+
+#btnStart {
+    background-color: lightslategray;
+    border-color: black;
+    border: 1px, solid;
+    cursor: pointer;
+    font-size: 15px;
+    width: 80px;
+    height: 30px;
+}
+
+#btnStart:hover {
+    background-color: slategray;
+}
+
+/* result */
+
+#divResult {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    z-index: 1;
+
+    visibility: hidden;
+}
+
+.bResultTitle {
+    font-size: 30px;
+}
+
+#lblResultDesc {
+    font-size: 20px;
+}
+
+#btnAgain {
+    background-color: lightslategray;
+    border-color: black;
+    border: 1px, solid;
+    cursor: pointer;
+    font-size: 15px;
+    width: 80px;
+    height: 30px;
+}
+
+#btnAgain:hover {
+    background-color: slategray;
+}
+
+/* canvas */
+
+.bCanvasTitle {
+    font-size: 30px;
+}
+
+#divCanvas {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    z-index: 2;
+
+    visibility: hidden;
+}
+
+#canvas {
+    background-color: red;
+    width: 80%;
+    height: 80%;
+    cursor: pointer;
+}
