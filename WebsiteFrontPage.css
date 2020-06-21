@@ -1,7 +1,7 @@
 /* body */
 .body {
     background-color: lightslategray;
-    min-width: 1000px;
+    min-width: 910px;
 }
 /* title */
 .titleDiv {
@@ -48,4 +48,21 @@
 .subHeadingDiv {
     text-align: center;
     border-bottom: 1px dashed black;
+    margin-top: 6px;
+}
+
+/* dropdown */
+
+.divDropdownMenu {
+    display: inherit;
+}
+
+.dropdownButton {
+    background-color: lightslategray;
+    border-color: black;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    float: right;
 }

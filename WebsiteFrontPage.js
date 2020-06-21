@@ -1,4 +1,6 @@
-//Buttons
+// link divertion
+
+// button
 var BtnLink1 = document.getElementById('btnLink1');
 var BtnLink2 = document.getElementById('btnLink2');
 var BtnLink3 = document.getElementById('btnLink3');
@@ -20,3 +22,55 @@ for (let i = 0; i < links.length; i++) {
         window.location.href = htmls[i];
     });
 }
+
+// dropdown menus
+
+// divs
+var divGame = document.getElementById("divGames");
+var divUtility = document.getElementById("divUtility");
+var divOther = document.getElementById("divOther");
+
+// buttons
+var btnGameDropdown = document.getElementById("btnGameDropdown");
+var btnUtilityDropdown = document.getElementById("btnUtilityDropdown");
+var btnOtherDropdown = document.getElementById("btnOtherDropdown");
+
+var gameHidden = false;
+var utilityHidden = false;
+var otherHidden = false;
+
+btnGameDropdown.addEventListener("click", () => {
+    if (!gameHidden) {
+        divGame.style.display = "none";
+        gameHidden = true;
+        btnGameDropdown.innerText = "+";
+    } else if (gameHidden) {
+        divGame.style.display = "inherit";
+        gameHidden = false;
+        btnGameDropdown.innerText = "-";
+    }
+});
+
+btnUtilityDropdown.addEventListener("click", () => {
+    if (!utilityHidden) {
+        divUtility.style.display = "none";
+        utilityHidden = true;
+        btnUtilityDropdown.innerText = "+";
+    } else if (utilityHidden) {
+        divUtility.style.display = "inherit";
+        utilityHidden = false;
+        btnUtilityDropdown.innerText = "-";
+    }
+});
+
+btnOtherDropdown.addEventListener("click", () => {
+    if (!otherHidden) {
+        divOther.style.display = "none";
+        otherHidden = true;
+        btnOtherDropdown.innerText = "+";
+    } else if (otherHidden) {
+        divOther.style.display = "inherit";
+        otherHidden = false;
+        btnOtherDropdown.innerText = "-";
+    }
+});
