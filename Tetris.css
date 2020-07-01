@@ -1,5 +1,5 @@
 .body {
-    background-color: lightslategray;
+    background-color: #222629;
 }
 
 .div {
@@ -15,6 +15,11 @@
 
 .score {
     font-size: 20px;
+    color: #86C232;
+}
+
+.scoreLbl {
+    color: #86C232;
 }
 
 .scoreDiv {

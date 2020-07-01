@@ -1,12 +1,10 @@
-.buttons:hover {
-    background-color: slategray;
-}
 .buttons {
     width: 150px;
     height: 150px; 
-    border-color: black; 
-    background-color: lightslategray;
+    border: 1px solid #86C232; 
+    background-color: #222629;
     cursor: pointer;
+    color: #86C232;
     font-size: 50px;
     float: left;
 }

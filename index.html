@@ -1,144 +1,132 @@
+<!-- DISCLAMER:
+    HTML and CSS are not my strong point I've tried here but I apologise for any messy
+    formatting and bad code.
+    thx, chester
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="WebsiteFrontPage.js"></script>
-    <link rel="stylesheet" type="text/css" href="./WebsiteFrontPage.css">
-    <title>Chester's Website</title>
+    <script defer src="index.js"></script>
+    <link rel="stylesheet" type="text/css" href="./index.css">
+    <title>Mini152</title>
 </head>
-<body class="body" id="Body">
-    <div class="titleDiv">
-        <b class="title">Chester's Website</b>
+<body id="body">
+    <div class="divTop">
+        <canvas id="canvMenu"></canvas>
+        <!-- games dropdown menu -->
+        <div id="divGamesDropdown">
+            <button class="btnDrop">
+                <span style="color: #86C232;">• </span>        
+                <span>Games</span>
+                <span style="color: #86C232;"> •</span>
+            </button>
+            <div class="dropdown-content">
+                <a href="Draw.html">Draw</a>
+                <a href="Noughts&Crosses.html">Noughts & Crosses</a>
+                <a href="Grid Game.html">Grid Game</a>
+                <a href="Pong.html">Pong</a>
+                <a href="Snake.html">Snake</a>
+                <a href="FlappyBirb.html">Flappy Birb</a>
+                <a href="Tetris.html">Tetris</a>
+            </div>
+        </div>
+        <!-- utility dropdown menu -->
+        <div id="divUtilityDropdown">
+            <button class="btnDrop">
+                <span style="color: #86C232;">• </span>
+                <span>Utility</span>
+                <span style="color: #86C232;"> •</span>
+            </button>
+            <div class="dropdown-content">
+                <a href="Calendar.html">Calender</a>
+                <a href="3DSim.html">3D Simulator</a>
+                <a href="Picker.html">Picker</a>
+                <a href="Reaction Time.html">Reaction Time</a>
+            </div>
+        </div>
+        <!--<img id="imgTitle" src="assets/Header.png">-->
+        <canvas id="canvTitle"></canvas>
+        <!-- code button -->
+        <button id="btnCode">
+            <span style="color: #86C232;">• </span>    
+            <span>Code</span>
+            <span style="color: #86C232;"> •</span>
+        </button>
+        <!-- about button -->
+        <button id="btnAbout">
+            <span style="color: #86C232;">• </span>
+            <span>About</span>
+            <span style="color: #86C232;"> •</span>
+        </button>
+        <!-- settings -->
+        <img id="imgSettings" src="assets/Cog.png">
     </div>
-
-    <div class="titleUnderlineDiv"></div>
-
-    <div class="subHeadingDiv">
-        <b class="subHeading">Games</b>
-        <button id="btnGameDropdown" class="dropdownButton">-</button>
+    <div id="divMenu">
+        <canvas id="canvInMenu"></canvas>
+        <div class="divMenu-content">
+            <div class="divMenuGames">
+                <label class="lblMenuGames">Games</label>
+                <button id="btnMenuGames">-</button>
+            </div>
+            <div id="divMenuGames-content">
+                <a href="Draw.html">Draw</a>
+                <a href="Noughts&Crosses.html">Noughts & Crosses</a>
+                <a href="Grid Game.html">Grid Game</a>
+                <a href="Pong.html">Pong</a>
+                <a href="Snake.html">Snake</a>
+                <a href="FlappyBirb.html">Flappy Birb</a>
+                <a href="Tetris.html">Tetris</a>
+            </div>
+            <div class="divMenuUtility">
+                <label class="lblMenuUtility">Utility</label>
+                <button id="btnMenuUtility">-</button>
+            </div>
+            <div id="divMenuUtility-content">
+                <a href="Calendar.html">Calender</a>
+                <a href="3DSim.html">3D Simulator</a>
+                <a href="Picker.html">Picker</a>
+                <a href="Reaction Time.html">Reaction Time</a>
+            </div>
+            <div class="divMenuOther">
+                <a href="#" class="btnMenuOther">Code</a>
+                <a href="#" class="btnMenuOther">About</a>                
+            </div>
+        </div>
     </div>
-
-    <div id="divGames" class="divDropdownMenu">
-
-        <div class="displayDiv">
-            <img class="displayImg" src="assets/Draw.JPG">
-            <span class="displayTitle"><strong>Draw</strong></span>
-            <br><br><br>
-            <span class="displayTitle"><button class="displayPlayButton" id="btnLink1">Play Draw</button></span>
+    <div id="divSettings">
+        <img id="imgInSettings" src="assets/Cog.png">
+        <div class="divSettings-content">
+            <div class="divBackgroundChange">
+                <div class="divBackgroundChangeTitle">
+                    <label class="lblBackgroundChangeTitle">Change Background</label>
+                </div>
+                <div>
+                    <label class="lblInputTitle">Number Of Points</label>
+                    <input class="txtBackgroundChangeInput" id="txtNoOfPoints" value="100" type="text">
+                </div>
+                <div>
+                    <label class="lblInputTitle">Links Between Points</label>
+                    <input class="txtBackgroundChangeInput" id="txtLinks" value="3" type="text">
+                </div>
+                <div>
+                    <label class="lblInputTitle">Anchors</label>
+                    <input class="txtBackgroundChangeInput" id="txtAnchors" value="20" type="text">
+                </div>
+                <div>
+                    <label class="lblInputTitle">Distance (pixels)</label>
+                    <input class="txtBackgroundChangeInput" id="txtDistance" value="100" type="text">
+                </div>
+                <div>
+                    <label class="lblInputTitle">Time To Change (ms)</label>
+                    <input class="txtBackgroundChangeInput" id="txtTimeToChange" value="5000" type="text">
+                </div>
+                <button id="btnReloadBackground">Reload Background</button>
+                <button id="btnResetBackground">Reset</button>
+            </div>
         </div>
-
-        <br clear="all">
-        <div class="displayDiv">
-            <img class="displayImg" src="assets/NandC.JPG">
-            <span class="displayTitle"><strong>Noughts & Crosses</strong></span>
-            <br><br><br>
-            <span class="displayTitle"><button class="displayPlayButton" id="btnLink2">Play N & C</button></span>
-        </div>
-
-        <br clear="all">
-        <div class="displayDiv">
-            <img class="displayImg" src="assets/Grid Game.JPG">
-            <span class="displayTitle"><strong>Grid Game</strong></span>
-            <br><br><br>
-            <span class="displayTitle"><button class="displayPlayButton" id="btnLink3">Play Grid Game</button></span>
-        </div>
-
-        <br clear="all">
-        <div class="displayDiv">
-            <img class="displayImg" src="assets/Pong.JPG">
-            <span class="displayTitle"><strong>Pong</strong></span>
-            <br><br><br>
-            <span class="displayTitle"><button class="displayPlayButton" id="btnLink4">Play Pong</button></span>
-        </div>
-
-        <br clear="all">
-        <div class="displayDiv">
-            <img class="displayImg" src="assets/Snake.JPG">
-            <span class="displayTitle"><strong>Snake</strong></span>
-            <br><br><br>
-            <span class="displayTitle"><button class="displayPlayButton" id="btnLink5">Play Snake</button></span>
-        </div>
-
-        <br clear="all">
-        <div class="displayDiv">
-            <img class="displayImg" src="assets/FlappyBirb.JPG">
-            <span class="displayTitle"><strong>Flappy Birb</strong></span>
-            <br><br><br>
-            <span class="displayTitle"><button class="displayPlayButton" id="btnLink6">Play Flappy Birb</button></span>
-        </div>
-
-        <br clear="all">
-        <div class="displayDiv">
-            <img class="displayImg" src="assets/Tetris.JPG">
-            <span class="displayTitle"><strong>Tetris</strong></span>
-            <br><br><br>
-            <span class="displayTitle"><button class="displayPlayButton" id="btnLink7">Play Tetris</button></span>
-        </div>
-    
-    </div>        
-
-    <br clear="all">
-    <div class="subHeadingDiv">
-        <b class="subHeading">Utility</b>
-        <button id="btnUtilityDropdown" class="dropdownButton">-</button>
     </div>
-
-    <div id="divUtility" class="divDropdownMenu">
-
-        <!--
-        <br clear="all">
-        <div class="displayDiv">
-            <img class="displayImg" src="assets/Progress.JPG">
-            <span class="displayTitle"><strong>Progress</strong></span>
-            <br><br><br>
-            <span class="displayTitle"><button class="displayPlayButton" id="btnLink8">View Progress</button></span>
-        </div>        
-        -->
-
-        <br clear="all">
-        <div class="displayDiv">
-            <img class="displayImg" src="assets/Calendar.JPG">
-            <span class="displayTitle"><strong>Calendar</strong></span>
-            <br><br><br>
-            <span class="displayTitle"><button class="displayPlayButton" id="btnLink9">View Calendar</button></span>
-        </div>
-
-        <br clear="all">
-        <div class="displayDiv">
-            <img class="displayImg" src="assets/3DSim.JPG">
-            <span class="displayTitle"><strong>3D Simulator</strong></span>
-            <br><br><br>
-            <span class="displayTitle"><button class="displayPlayButton" id="btnLink10">View 3D Simulator</button></span>
-        </div>
-
-        <br clear="all">
-        <div class="displayDiv">
-            <img class="displayImg" src="assets/Picker.JPG">
-            <span class="displayTitle"><strong>Picker</strong></span>
-            <br><br><br>
-            <span class="displayTitle"><button class="displayPlayButton" id="btnLink11">View Picker</button></span>
-        </div>
-
-        <br clear="all">
-        <div class="displayDiv">
-            <img class="displayImg" src="assets/Reaction Time.JPG">
-            <span class="displayTitle"><strong>Reaction Time</strong></span>
-            <br><br><br>
-            <span class="displayTitle"><button class="displayPlayButton" id="btnLink12">Test Reaction Time</button></span>
-        </div>
-
-    </div>
-
-    <br clear="all"> 
-    <div class="subHeadingDiv">
-        <b class="subHeading">Other</b>
-        <button id="btnOtherDropdown" class="dropdownButton">-</button>
-    </div>
-
-    <div id="divOther" class="divDropdownMenu">
-        
-    </div>
-
+    <canvas id="canvas"></canvas>
 </body>
 </html>

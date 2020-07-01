@@ -495,43 +495,24 @@ const btnPyramid = document.getElementById("btnPyramid");
 const btnTrapezium = document.getElementById("btnTrapezium");
 
 loopCube();
-btnCube.style.backgroundColor = "slategray";
 
 // event handlers
 
 btnCube.addEventListener("click", () => {
     loopCube();
-    resetBtns();
-    btnCube.style.backgroundColor = "slategray";
 });
 btnTriangle.addEventListener("click", () => {
     loopTriangle();
-    resetBtns();
-    btnTriangle.style.backgroundColor = "slategray";
 });
 btnParallelogram.addEventListener("click", () => {
     loopParallelogram();
-    resetBtns();
-    btnParallelogram.style.backgroundColor = "slategray";
 });
 btnPyramid.addEventListener("click", () => {
     loopPyramid();
-    resetBtns();
-    btnPyramid.style.backgroundColor = "slategray";
 });
 btnTrapezium.addEventListener("click", () => {
     loopTrapezium();
-    resetBtns();
-    btnTrapezium.style.backgroundColor = "slategray";
 });
-
-function resetBtns() {
-    btnCube.style.backgroundColor = "lightslategray";
-    btnTriangle.style.backgroundColor = "lightslategray";
-    btnParallelogram.style.backgroundColor = "lightslategray";
-    btnPyramid.style.backgroundColor = "lightslategray";
-    btnTrapezium.style.backgroundColor = "lightslategray";
-}
 
 // rotation movements
 

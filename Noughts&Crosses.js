@@ -311,7 +311,6 @@ function ClearBoard() {
         buttons[i] = "";
     }
     window.location.reload();
-    break;
 }
 
 function WhoGoes() {

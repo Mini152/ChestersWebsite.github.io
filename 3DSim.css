@@ -1,13 +1,8 @@
 .body {
-    background-color: lightslategray;
+    background-color: #222629;
 }
 
 /* canvas */
-
-.divCanvas {
-    border-color: black;    
-    border: 1px, solid, black;
-}
 
 #canvas {
     height:100%;
@@ -18,14 +13,14 @@
 /* buttons */
 
 .buttons {
-    background-color: lightslategray;
-    border-color: black;
-    border: 1px, solid, black;
+    background-color: #222629;
+    border: 1px solid #86C232;
+    color: #FFFFFF;
+    cursor: pointer;
 }
 
 .buttons:hover {
-    background-color: slategray;
-    cursor: pointer;
+    color: #86C232;
 }
 
 .divButtons  {

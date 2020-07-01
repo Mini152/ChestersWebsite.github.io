@@ -225,7 +225,7 @@ function colourTile(i, j) {
             break;
         case 8:
             //lightslategrey
-            context.fillStyle = "lightslategrey";
+            context.fillStyle = "#222629";
             createTile(i, j);
             break;
         case 9:

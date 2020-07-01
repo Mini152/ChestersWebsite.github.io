@@ -2,14 +2,14 @@
     position: relative;
     margin:0 auto;
     text-align: center;
-    background-color: lightslategray;
+    background-color: #222629;
     height: 120px;
     width: 763px;
 }
 
 .title {
     font-size: 100px;
-    color: rgba(3, 3, 3, 0.880);
+    color: #86C232;
 }
 
 .canvas {
@@ -26,23 +26,21 @@
     position: relative;
     margin:0 auto;
     text-align: center;
-    background-color: lightslategray;
+    background-color: #222629;
 }
 
 .btns {
     font-size: 25px;
     margin: 5px;
-    background-color: lightslategray;
-    border-color: black;
+    background-color: #222629;
+    color: #FFFFFF;
+    border: 1px solid #86C232;
     cursor: pointer;
-}
-.btns:hover {
-    background-color: slategray;
 }
 
 .coordDiv {
     position: relative;
     margin:0 auto;
     text-align: center;
-    background-color: lightslategray;
+    background-color: #222629;
 }
