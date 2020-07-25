@@ -1,0 +1,104 @@
+#body {
+    background-color: #222629;
+    min-height: 400px;
+    margin: 0;
+}
+
+/* website content side menu (flaot left) */
+
+.divWebsiteContent {
+    height: 100%;
+    width: 250px;
+    position: absolute;
+    background-color: #222629;
+    border-right: 1px solid #86C232;
+    z-index: 2;
+}
+
+.divWebsiteContentTitle {
+    position: relative;
+    width: 220px;
+    top: 20px;
+    left: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #86C232;
+}
+
+.lblWebsiteContentTitle {
+    font-size: 25px;
+    position: relative;
+    color: #FFFFFF;
+}
+
+.divContentItems {
+    position: relative;
+    top: 20px;
+    left: 30px;
+    display: block;
+}
+
+.divContentItems a {
+    color: #FFFFFF;
+    cursor: pointer;
+    text-decoration: none;
+    width: 150px;
+    padding: 12px 16px;
+    display: block;
+}
+
+.divContentItems a:hover {
+    color: #86C232;
+}
+
+/* language select side menu (top right) */
+
+.divLanguageSelect {
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
+    width: 250px;
+    height: 50px;
+    border-top: 1px solid #86C232;
+    background-color: #222629;
+}
+
+.divLanguageSelect button {
+    position: relative;
+    width: 60px;
+    height: 20px;
+    margin-left: 15px;
+    margin-top: 15px;
+    background-color: #222629;
+    cursor: pointer;
+    color: #FFFFFF;
+    border: 1px solid #86C232;
+}
+
+.divLanguageSelect button:hover {
+    color: #86C232;
+}
+
+/* code display */
+
+#bDisplayedCodeTitle {
+    position: absolute;
+    left: 270px;
+    font-size: 40px;
+    color: #FFFFFF;
+    z-index: 2;
+}
+
+#txtArea {
+    position: relative;
+    box-sizing: border-box;
+    float: right;
+    top: 50px;
+    right: 5px;
+    z-index: 1;
+    /*width: 86.35%;*/
+    height: 860px;
+    resize: none;
+    background-color: #222629;
+    border: 1px solid #86C232;
+    color: #FFFFFF;
+}

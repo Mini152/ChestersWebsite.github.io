@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="Code.js"></script>
+    <link rel="stylesheet" type="text/css" href="./Code.css">
+    <title>Code</title>
+</head>
+<body id="body">
+    <div class="divWebsiteContent">
+        <div class="divWebsiteContentTitle">
+            <label class="lblWebsiteContentTitle">Content</label> 
+        </div>
+        <div class="divContentItems">
+            <a onclick="selectFileName('index');">Index</a>
+            <a onclick="selectFileName('draw')">Draw</a>
+            <a onclick="selectFileName('nAndC')">Noughts & Crosses</a>
+            <a onclick="selectFileName('gridGame')">Grid Game</a>
+            <a onclick="selectFileName('pong')">Pong</a>
+            <a onclick="selectFileName('snake')">Snake</a>
+            <a onclick="selectFileName('flappyBirb')">Flappy Birb</a>
+            <a onclick="selectFileName('tetris')">Tetris</a>
+            <a onclick="selectFileName('calendar')">Calendar</a>
+            <a onclick="selectFileName('3DSim')">3D Simulator</a>
+            <a onclick="selectFileName('picker')">Picker</a>
+            <a onclick="selectFileName('reactionTime')">Reaction Time</a>
+            <a onclick="selectFileName('code')">Code</a>
+            <a onclick="selectFileName('about')">About</a>
+        </div>
+        <div class="divLanguageSelect">
+            <button onclick="selectFileType('CSS')">CSS</button>
+            <button onclick="selectFileType('HTML')">HTML</button>
+            <button onclick="selectFileType('JS')">JS</button>
+        </div>
+    </div>
+    <b id="bDisplayedCodeTitle">indexHTML</b>
+    <textarea id="txtArea" cols="1000" rows="5000" readonly></textarea>
+</body>
+</html>
