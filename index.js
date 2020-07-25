@@ -19,7 +19,6 @@ function resizeWindow() {
     } else { // if window width is less than 1000px the minimum window width will take place
         gamesOffset = "0%"; utilityOffset = "0%"; codeOffset = "0%"; aboutOffset = "0%"; // this will remove all postioning values and the buttons and dropdowns will be at their minimum
     }
-
     // setting postitons of the top buttons and dropdowns
     document.getElementById("divGamesDropdown").style.right = gamesOffset;
     document.getElementById("divUtilityDropdown").style.right = utilityOffset;
@@ -231,7 +230,7 @@ const btnCode = document.getElementById("btnCode");
 const btnAbout = document.getElementById("btnAbout");
 
 btnCode.addEventListener("click", () => {
-
+    window.location.href = "Code.html";
 });
 
 btnAbout.addEventListener("click", () => {
