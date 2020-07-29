@@ -1,0 +1,77 @@
+#body {
+    background-color: #222629;
+    min-width: 950px;
+}
+
+/* divInfo */
+
+.divInfo {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#bMoney {
+    color: #86C232;
+}
+
+#lblMoneyPerSecond {
+    color: #86C232;
+}
+
+#btnClick {
+    background: none;
+    border: 1px solid #86C232;
+    padding: 80px 60px 80px 60px;
+    color: #FFFFFF;
+    cursor: pointer;
+    outline: none;
+}
+
+#btnClick:hover {
+    color: #86C232;
+}
+
+/* divButtons */
+
+.divButtons {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.btnUpgrade {
+    background: none;
+    border: 1px solid #86C232;
+    width: 150px;
+    padding: 10px 5px 10px 5px;
+    color: #FFFFFF;
+    cursor: pointer;
+    outline: none;
+}
+
+.btnUpgrade:hover {
+    color: #86C232;
+}
+
+.bUpgradePrice {
+    font-size: 12px;
+    margin: 0px 10px 0px 23px;
+    color: #86C232;
+}
+
+/* reset */
+
+#btnReset {
+    background: none;
+    border: 1px solid #86C232;
+    color: #FFFFFF;
+    cursor: pointer;
+    outline: none;
+    position: fixed;
+    margin: 0px 10px 10px 0px;
+    right: 0;
+    bottom: 0;
+}
+
+#btnReset:hover {
+    color: #86C232;
+}
