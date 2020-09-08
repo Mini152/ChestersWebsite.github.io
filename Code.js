@@ -42,7 +42,6 @@ async function getData() {
 
 getData();    
 
-
 // legacy code (needed for somewhere else)
 
 //// fetch json from Code.json
