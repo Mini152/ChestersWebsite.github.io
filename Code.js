@@ -23,14 +23,16 @@ var identifier = name + "." + type;
 function selectFileName(selectedName) {
     name = selectedName;
     identifier = name + "." + type;
-    bDisplayedCodeTitle.innerText = identifier;
+    let temp = identifier.replace("%20", " ");
+    bDisplayedCodeTitle.innerText = temp;
     getData();
 }
 
 function selectFileType(selectedType) {
     type = selectedType;
     identifier = name + "." + type;
-    bDisplayedCodeTitle.innerText = identifier;
+    let temp = identifier.replace("%20", " ");
+    bDisplayedCodeTitle.innerText = temp;
     getData();
 }
 
