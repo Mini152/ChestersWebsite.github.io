@@ -214,6 +214,13 @@ function Algorithm(algorithmTeam, oppositeTeam) {
         return;
     }
 
+    // stop diagonal trick
+
+    if (buttons[1].innerText == algorithmTeam && buttons[5].innerText == oppositeTeam) {
+        buttons[3].innerText = algorithmTeam;
+        return;
+    }
+
     //Check for 1 algortithm team and 2 blanks in row and place
 
     //Checks horizontals clear grid
