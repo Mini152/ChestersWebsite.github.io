@@ -2,6 +2,11 @@ const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
 const body = document.getElementById('body');
 
+//var scale = window.devicePixelRatio; // scale = pixel ratio scale
+//canvas.width = Math.floor(window.outerWidth * scale) // canvas width = window width adjusted by scale
+//canvas.height = Math.floor(937 * scale); // canvas height = window height adjusted by scale
+//context.scale(scale, scale); // set scale of context
+
 //Guide:
 //30X x x 7.5Y per tile
 
@@ -613,17 +618,41 @@ body.addEventListener('keypress', function (event) {
     }
 });
 
-body.addEventListener('keypress', function(event) {
-    if (event.key == "r") {
-        var count = 0;
-        for (let j = 0; j < 20; j++) {
-            for (let i = 0; i < 10; i++) {
-                if (board[j][i] == 9) {
-                    count++;
-                }
+canvas.addEventListener("click", function (event) {
+    if (event.y <= 200) {
+        //up
+        if (checkCrossedBorder()) {
+            if (activePiece.y < 18) {
+                rotatePiece();
+                createActivePiece();
+                renderBoard();
             }
         }
-        console.log(count);
+        return;
+    } else if (event.y >= 565) {
+        //down
+        drop1Block();
+        return;
+    }
+
+    if (event.x <= 600) { // canvas.width = 300 but mouseEvent.x sees left as 400 and right as 800, 600 middle
+        //left
+        if (detectSideBorders(-1) && !blockHorizontalMovement(-1)) {
+            activePiece.x--;
+            remove9s();
+            createActivePiece();
+            renderBoard();
+        }
+        return;
+    } else {
+        //right
+        if (detectSideBorders(1) && !blockHorizontalMovement(1)) {
+            activePiece.x++;
+            remove9s();
+            createActivePiece();
+            renderBoard();
+        }
+        return;
     }
 });
 
