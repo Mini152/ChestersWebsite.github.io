@@ -142,6 +142,8 @@ const red = {
 
 var activePiece;
 var score = 0;
+var arrayOfPieces = [];
+var arrayOfPiecesPosition = 0;
 
 //create board array
 var board = new Array(20);
@@ -248,8 +250,11 @@ function createTile(i, j) {
 //select piece
 
 function newPiece() {
-    var rnd = Math.floor(Math.random() * 7);
-    switch (rnd) {
+    if (arrayOfPiecesPosition >= 7) {
+        createarrayOfPieces();
+    }
+    
+    switch (arrayOfPieces[arrayOfPiecesPosition]) {
         case 0:
             activePiece = lightBlue;
             break;
@@ -274,6 +279,14 @@ function newPiece() {
     }
     activePiece.y = 1; 
     activePiece.x = 5;
+    arrayOfPiecesPosition++;
+}
+
+function createarrayOfPieces() {
+    //var rnd = Math.floor(Math.random() * 7);
+    arrayOfPieces = [0, 1, 2, 3, 4, 5, 6];
+    arrayOfPiecesPosition = 0;
+    arrayOfPieces.sort(() => Math.random() - 0.5);
 }
 
 //piece rotation
@@ -581,13 +594,14 @@ function game() {
     routineCheckingProcedures();
 }
 
+createarrayOfPieces();
 newBlock();
 var gameInterval = setInterval(game, 1000/ 3);
 
-body.addEventListener('keypress', function (event) {
+body.addEventListener('keydown', function (event) {
     routineCheckingProcedures();
-    switch (event.key || event.which) {
-        case "w": case "W": case 38:
+    switch (event.key) {
+        case "w": case "W": case "ArrowUp":
             if (checkCrossedBorder()) {
                 if (activePiece.y < 18) {
                     rotatePiece();
@@ -596,10 +610,10 @@ body.addEventListener('keypress', function (event) {
                 }
             }
             break;
-        case "s": case "S": case 40:
+        case "s": case "S": case "ArrowDown":
             drop1Block();
             break;
-        case "a": case "A": case 37:
+        case "a": case "A": case "ArrowLeft":
             if (detectSideBorders(-1) && !blockHorizontalMovement(-1)) {
                 activePiece.x--;
                 remove9s();
@@ -607,7 +621,7 @@ body.addEventListener('keypress', function (event) {
                 renderBoard();
             }
             break;
-        case "d": case "D": case 39:
+        case "d": case "D": case "ArrowRight":
             if (detectSideBorders(1) && !blockHorizontalMovement(1)) {
                 activePiece.x++;
                 remove9s();
@@ -618,6 +632,7 @@ body.addEventListener('keypress', function (event) {
     }
 });
 
+/*
 canvas.addEventListener("click", function (event) {
     if (event.y <= 200) {
         //up
@@ -655,6 +670,7 @@ canvas.addEventListener("click", function (event) {
         return;
     }
 });
+*/
 
 // personal highscore leaderboard (computer based)
 
