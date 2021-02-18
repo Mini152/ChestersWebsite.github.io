@@ -144,6 +144,7 @@ var activePiece;
 var score = 0;
 var arrayOfPieces = [];
 var arrayOfPiecesPosition = 0;
+var paused = false;
 
 //create board array
 var board = new Array(20);
@@ -251,7 +252,7 @@ function createTile(i, j) {
 
 function newPiece() {
     if (arrayOfPiecesPosition >= 7) {
-        createarrayOfPieces();
+        createArrayOfPieces();
     }
     
     switch (arrayOfPieces[arrayOfPiecesPosition]) {
@@ -282,7 +283,7 @@ function newPiece() {
     arrayOfPiecesPosition++;
 }
 
-function createarrayOfPieces() {
+function createArrayOfPieces() {
     //var rnd = Math.floor(Math.random() * 7);
     arrayOfPieces = [0, 1, 2, 3, 4, 5, 6];
     arrayOfPiecesPosition = 0;
@@ -520,12 +521,6 @@ function drop1Block() {
     }
 }
 
-// routine checking procedures
-
-function routineCheckingProcedures() {
-    checkGameEnding();
-}
-
 function checkGameEnding() {
     for (let i = 0; i < 9; i++) {
         if (board[2][i] != 0 && board[2][i] != 9) {
@@ -571,6 +566,20 @@ function checkForFullRow() {
     //}
 }
 
+// pause
+
+function togglePause() {
+    if (!paused) {
+        clearInterval(gameInterval);
+        paused = true;
+        // make your own popup later
+        alert("Paused");
+    } else {
+        gameInterval = setInterval(game, 1000 / 3);
+        paused = false;
+    }
+}
+
 // update score
 
 function updateScore(increment) {
@@ -594,12 +603,12 @@ function game() {
     routineCheckingProcedures();
 }
 
-createarrayOfPieces();
+createArrayOfPieces();
 newBlock();
 var gameInterval = setInterval(game, 1000/ 3);
 
 body.addEventListener('keydown', function (event) {
-    routineCheckingProcedures();
+    checkGameEnding();
     switch (event.key) {
         case "w": case "W": case "ArrowUp":
             if (checkCrossedBorder()) {
@@ -629,6 +638,12 @@ body.addEventListener('keydown', function (event) {
                 renderBoard();
             }
             break;
+        case "p": case "P":
+            togglePause();
+        case " ":
+            while (!collision()) {
+                drop1Block();
+            }
     }
 });
 
