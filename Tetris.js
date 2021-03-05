@@ -144,7 +144,6 @@ var activePiece;
 var score = 0;
 var arrayOfPieces = [];
 var arrayOfPiecesPosition = 0;
-var paused = false;
 
 //create board array
 var board = new Array(20);
@@ -566,20 +565,6 @@ function checkForFullRow() {
     //}
 }
 
-// pause
-
-function togglePause() {
-    if (!paused) {
-        clearInterval(gameInterval);
-        paused = true;
-        // make your own popup later
-        alert("Paused");
-    } else {
-        gameInterval = setInterval(game, 1000 / 3);
-        paused = false;
-    }
-}
-
 // update score
 
 function updateScore(increment) {
@@ -638,8 +623,6 @@ body.addEventListener('keydown', function (event) {
                 renderBoard();
             }
             break;
-        case "p": case "P":
-            togglePause();
         case " ":
             while (!collision()) {
                 drop1Block();
