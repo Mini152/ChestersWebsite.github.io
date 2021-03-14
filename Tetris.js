@@ -573,7 +573,6 @@ function togglePause() {
         clearInterval(gameInterval);
         paused = true;
         // make your own popup later
-        alert("Paused");
     } else {
         gameInterval = setInterval(game, 1000 / 3);
         paused = false;

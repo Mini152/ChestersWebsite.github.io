@@ -61,8 +61,8 @@ canvInMenu.addEventListener("click", () => {
 
 // make menu icons (the three lines)
 function makeIcons(canv) {
-    let canvas = document.getElementById(canv);
-    let context  = canvas.getContext("2d");
+    let canvas = document.getElementById(canv) // canvas element
+    let context  = canvas.getContext("2d"); // context of canvas
     context.fillStyle = "#86C232"; // fill colour green
     // w - 290, h - 130
     context.fillRect(10, 10, 280, 30); // creates the three lines for menu icon
@@ -72,25 +72,25 @@ function makeIcons(canv) {
 
 // collapses the games displayed in the menu
 function toggleMenuGames() {
-    if (gamesHidden) {
-        btnMenuGames.innerText = "-";
-        divMenuGamesContent.style.display = "block";
-        gamesHidden = false;
+    if (gamesHidden) { 
+        btnMenuGames.innerText = "-"; 
+        divMenuGamesContent.style.display = "block"; 
+        gamesHidden = false; 
     } else {
-        btnMenuGames.innerText = "+";
-        divMenuGamesContent.style.display = "none";
-        gamesHidden = true;
+        btnMenuGames.innerText = "+"; 
+        divMenuGamesContent.style.display = "none"; 
+        gamesHidden = true; 
     }
 }
 
 // collapses the utilities displayed in the menu
 function toggleMenuUtility() {
-    if (utilityHidden) {
+    if (utilityHidden) { 
         btnMenuUtility.innerText = "-";
         divMenuUtilityContent.style.display = "block";
-        utilityHidden = false;
+        utilityHidden = false; 
     } else {
-        btnMenuUtility.innerText = "+";
+        btnMenuUtility.innerText = "+"; 
         divMenuUtilityContent.style.display = "none";
         utilityHidden = true;
     }
@@ -240,32 +240,32 @@ btnAbout.addEventListener("click", () => {
 // background animaion
 // -----------------------------------------
 
-const canvas = document.getElementById("canvas");
-const context = canvas.getContext("2d");
+const canvas = document.getElementById("canvas"); // canvas element
+const context = canvas.getContext("2d"); // context of canvas
 
 var arrPoints = [];
 var orderOfClosest = [];
 var movementX = [];
 var movementY = [];
 var noOfPoints = 100;
-var links = 5;
-var anchors = 20;
-var distance = 100;
-var timeToChange = 5000;
+var links = 5; // number of links between nearest points
+var anchors = 20; // number of points that are on the border
+var distance = 100; // distance between direction changes (in pixels)
+var timeToChange = 5000; // miliseconds
+
 var moves = 0;
 
-// constructor class for point2D
-class point2D {
+class point2D { // constructor class for point2D
     constructor(x, y, anchor) { this.x = x; this.y = y; this.anchor = anchor; } // each point2D class has 3 variables attached: x, y, anchor
 }
 
 function createBackground() { 
     // removes canvas blur
     canvas.style.width = 100 + "%";
-    canvas.style.height = 937 + "px";
+    canvas.style.height = 937 + "%";
     var scale = window.devicePixelRatio;
     canvas.width = Math.floor(window.outerWidth * scale);
-    canvas.height = Math.floor(937 * scale);
+    canvas.height = Math.floor(937 * scale); 
     context.scale(scale, scale);
 
     for (let i = 0; i < noOfPoints; i++) {
@@ -283,48 +283,46 @@ function createBackground() {
                 case 3:
                     arrPoints.push(new point2D(0, Math.floor(Math.random() * canvas.height), true)); // make point on left border
             }
-        } else {
+        } else { // if not an anchor point
             arrPoints.push(new point2D(Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * canvas.height), false)); // make regular point on the screen
         }
     }
 }
 
 function getClosestPoints(anchorPointIndex) {
-    let temp = [];
+    let temp = []; 
 
-    for (let i = 0; i < noOfPoints; i++) {
-        if (i != anchorPointIndex) {
-            // find the x, y translation from anchorPointIndex
-            let x = arrPoints[anchorPointIndex].x - arrPoints[i].x;
-            let y = arrPoints[anchorPointIndex].y - arrPoints[i].y;
-            // if x or y is negative turn it into positive
-            if (Math.sign(x) == -1) x = Math.abs(x);
-            if (Math.sign(y) == -1) y = Math.abs(y);
-            let value = x + y;
-            for (let j = 0; j < links; j++) {
-                if (value < temp[j] || temp[j] == null) {
-                    for (let z = j; z < links; z++) {
-                        temp[j + 1] = temp[j];
-                        orderOfClosest[j + 1] = orderOfClosest[j];
+    for (let i = 0; i < noOfPoints; i++) { 
+        if (i != anchorPointIndex) { 
+            let x = arrPoints[anchorPointIndex].x - arrPoints[i].x; 
+            let y = arrPoints[anchorPointIndex].y - arrPoints[i].y; 
+            if (Math.sign(x) == -1) x = Math.abs(x); 
+            if (Math.sign(y) == -1) y = Math.abs(y); 
+            let value = x + y; 
+            for (let j = 0; j < links; j++) { 
+                if (value < temp[j] || temp[j] == null) { 
+                    for (let z = j; z < links; z++) { 
+                        temp[j + 1] = temp[j]; 
+                        orderOfClosest[j + 1] = orderOfClosest[j]; 
                     }
                     temp[j] = value;
-                    orderOfClosest[j] = i;
+                    orderOfClosest[j] = i;      
                     break;
                 }
             }
         }
     }
-    if (orderOfClosest.length > links) orderOfClosest.pop();
-    if (temp.length > links) temp.pop();
+    if (orderOfClosest.length > links) orderOfClosest.pop(); 
+    if (temp.length > links) temp.pop(); 
 }
 
 function changePointsLocation() {
-    if (moves <= 0) {
-        for (let i = 0; i < noOfPoints; i++) {
-            let x = Math.floor(-1 + Math.random() * (1 + 1 - -1));
-            let y = Math.floor(-1 + Math.random() * (1 + 1 - -1));
-            movementX[i] = x;
-            movementY[i] = y;
+    if (moves <= 0) { 
+        for (let i = 0; i < noOfPoints; i++) { 
+            let x = Math.floor(-1 + Math.random() * (1 + 1 - -1)); 
+            let y = Math.floor(-1 + Math.random() * (1 + 1 - -1)); 
+            movementX[i] = x; 
+            movementY[i] = y; 
         }
         moves = distance;
     }
@@ -336,30 +334,29 @@ function changePointsLocation() {
         else if (arrPoints[i].y <= 0) movementY[i] = 1;
         else if (arrPoints[i].y >= canvas.height) movementY[i] = -1;
     }
-    for (let i = 0; i < noOfPoints; i++) {
-        if (arrPoints[i].anchor == false) {
-            arrPoints[i] = new point2D(arrPoints[i].x + movementX[i], arrPoints[i].y + movementY[i], false); // move the point in a direction
+    for (let i = 0; i < noOfPoints; i++) { 
+        if (arrPoints[i].anchor == false) { 
+            arrPoints[i] = new point2D(arrPoints[i].x + movementX[i], arrPoints[i].y + movementY[i], false); 
         }
     }
-    renderBackground();
+    renderBackground(); 
 }
 
 function renderBackground() {
-    context.fillStyle = "#222629";
+    context.fillStyle = "#222629"; 
     context.fillRect(0, 0, canvas.width, canvas.height);
-    context.strokeStyle = "#86C232";
-    context.beginPath();
+    context.strokeStyle = "#86C232"; 
+    context.beginPath(); 
     for (let i = 0; i < noOfPoints; i++) {
-        getClosestPoints(i);
-        for (let j = 0; j < links; j++) {
-            context.moveTo(arrPoints[i].x, arrPoints[i].y);
+        getClosestPoints(i); 
+        for (let j = 0; j < links; j++) { 
+            context.moveTo(arrPoints[i].x, arrPoints[i].y); 
             context.lineTo(arrPoints[orderOfClosest[j]].x, arrPoints[orderOfClosest[j]].y);
         }
     }
-    context.stroke();
+    context.stroke(); 
 }
 
-createBackground();
-// every timeToChange / distance miliseconds run changePointsLocations
-var interval = setInterval(changePointsLocation, (timeToChange / distance));
+createBackground(); 
+var interval = setInterval(changePointsLocation, (timeToChange / distance)); 
 renderBackground();
