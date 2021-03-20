@@ -13,6 +13,16 @@ const btnPerSecondUpgrade = document.getElementById("btnPerSecondUpgrade");
 // reset
 const btnReset = document.getElementById("btnReset");
 
+// if logged in before tell how much money was gained on while logged off
+if (localStorage.getItem("ClickerGame-totalMoney") != null) {
+    let previousTime = parseInt(localStorage.getItem("ClickerGame-currentTime")); // get previously stored time information
+    let currentTime = new Date().getTime(); // get current time
+    let millisecondDifference = currentTime - previousTime; // get the difference between previous & current time
+    let moneyToBeAdded = Math.floor((millisecondDifference / 1000) * moneyPerSecond); // calculate money to be added
+    alert("£" + moneyToBeAdded + " gained since previous login"); // alert how much money gained since last login
+    totalMoney += moneyToBeAdded; // add money to total money
+}
+
 // if never logged in before then set up local storage
 if (localStorage.getItem("ClickerGame-totalMoney") == null) localStorage.setItem("ClickerGame-totalMoney", "0");
 if (localStorage.getItem("ClickerGame-moneyPerSecond") == null) localStorage.setItem("ClickerGame-moneyPerSecond", "0");
@@ -32,15 +42,7 @@ var clickUpgrade = parseInt(localStorage.getItem("ClickerGame-clickUpgrade"));
 var perSecondUpgradePrice = parseInt(localStorage.getItem("ClickerGame-perSecondUpgradePrice"));
 var perSecondUpgrade = parseInt(localStorage.getItem("ClickerGame-perSecondUpgrade"));
 
-// if logged in before tell how much money was gained on while logged off
-if (localStorage.getItem("ClickerGame-totalMoney") != null) {
-    let previousTime = parseInt(localStorage.getItem("ClickerGame-currentTime")); // get previously stored time information
-    let currentTime = new Date().getTime(); // get current time
-    let millisecondDifference = currentTime - previousTime; // get the difference between previous & current time
-    let moneyToBeAdded = Math.floor((millisecondDifference / 1000) * moneyPerSecond); // calculate money to be added
-    alert("£" + moneyToBeAdded + " gained since previous login"); // alert how much money gained since last login
-    totalMoney += moneyToBeAdded; // add money to total money
-}
+
 
 function updatePrices() {
     // update frontend displays with updated variables

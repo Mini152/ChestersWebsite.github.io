@@ -2,6 +2,7 @@ const canvas = document.getElementById('Pong'); // canvas HTML element
 const context = canvas.getContext('2d'); // context for canvas
 const body = document.getElementById('body'); // body HTML element
 var speed = 60;
+var difficulty = 3.25;
 var ball = {
     direction: Math.floor(Math.random() * (4 - 1 + 1)) + 1, // (max - min + 1)) + min;
     x: canvas.width / 2,
@@ -35,18 +36,6 @@ function drawPaddle(x, y, w, h) {
 
 function clearCanvas() {
     context.clearRect(0, 0, canvas.width, canvas.height); // creates filled rectangle over the canvas screen to clear the screen
-}
-
-function moveLeftPaddle() {
-    drawPaddle(30, user.y - 30, 15, 60);
-}
-
-function moveRightPaddle() {
-    drawPaddle(555, algorithm() - 30, 15, 60)
-    //com.y = ball.y; // position computer paddle over ball's y position
-    //if (ball.y >= 30 && ball.y <= 370) {
-
-    //}
 }
 
 function drawBall(x, y) {
@@ -92,7 +81,7 @@ function resetObjects() {
     com.y = 60;
     ball.x = canvas.width / 2;
     ball.y = canvas.height / 2;
-    ball.direction = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+    ball.direction = Math.floor(Math.random() * (4 - 3 + 1)) + 3;
     clearInterval(gameInterval);
     speed = 60;
     gameInterval = setInterval(game, 1000 / speed);
@@ -100,46 +89,27 @@ function resetObjects() {
 
 // com play algorithm
 
+var prevPos = 0;
 function algorithm() { // returns position
     if (ball.y >= 20 && ball.y <= 380) {
-        com.y += (ball.y - com.y) * 0.07;
+        if (ball.x >= 425 && (ball.direction == 1 || ball.direction == 2)) {
+            if (ball.y > com.y) {
+                com.y += difficulty;
+            } else {
+                com.y -= difficulty;
+            }
+        }
         return com.y;
     }
     return com.y;
-
-    //********************************
-    //* com just starts freaking out *
-    //********************************
-
-    //if (ball.x >= 500) {
-    //    var rndPos = Math.floor(Math.random() * (60 - 1 + 1)) + 1;
-    //    com.y = (ball.y - 30) + rndPos;
-    //    return com.y;
-    //} else {
-    //    com.y = ball.y - 30;
-    //    return com.y;
-    //}
-
-    // ******************************
-    // * deflect to opposite corner *
-    // ******************************
-    
-    //if (user.y >= (canvas.height / 2) + 100) {
-    //    com.y = (ball.y + 25);
-    //} else if (user.y <= (canvas.height / 2) - 100) {
-    //    com.y = (ball.y - 25); 
-    //} else {
-    //    com.y = ball.y;
-    //}
-    //return com.y
 }
 
 //handling game render & progress
 
 function render() {
     clearCanvas();
-    moveLeftPaddle();
-    moveRightPaddle();
+    drawPaddle(30, user.y - 30, 15, 60);
+    drawPaddle(555, algorithm() - 30, 15, 60);
     drawBall(ball.x, ball.y);
     drawNet();
     UpdateComScore(com.score);
@@ -239,13 +209,58 @@ function update() {
 function paddleBounce() {
     clearInterval(gameInterval);
     speed += 5;
-    if (speed > 150) {
-        speed = 150;
+    if (speed > 250) {
+        speed = 250;
     }
     gameInterval = setInterval(game, 1000 / speed);
 }
 
-//handling game loop
+// buttons
+
+var btnEasy = document.getElementById("btnEasy");
+var btnInt = document.getElementById("btnInt");
+var btnExp = document.getElementById("btnExp");
+
+btnEasy.addEventListener("click", () => {
+    clearBtns();
+    btnEasy.style.color = "#86C232";
+    difficulty = 3;
+    resetObjects();
+    com.score = 0;
+    user.score = 0;
+    UpdateComScore(0);
+    UpdateUserScore(0);
+});
+
+btnInt.addEventListener("click", () => {
+    clearBtns();
+    btnInt.style.color = "#86C232";
+    difficulty = 3.25;
+    resetObjects();
+    com.score = 0;
+    user.score = 0;
+    UpdateComScore(0);
+    UpdateUserScore(0);
+});
+
+btnExp.addEventListener("click", () => {
+    clearBtns();
+    btnExp.style.color = "#86C232";
+    difficulty = 3.5;
+    resetObjects();
+    com.score = 0;
+    user.score = 0;
+    UpdateComScore(0);
+    UpdateUserScore(0);
+});
+
+function clearBtns() {
+    btnEasy.style.color = "#FFFFFF";
+    btnInt.style.color = "#FFFFFF";
+    btnExp.style.color = "#FFFFFF";
+}
+ 
+// handling game loop
 
 canvas.addEventListener('mousemove', function(event) {
     if (event.clientY >= 30 && event.clientY <= 370) {
@@ -267,4 +282,4 @@ function game() {
 }
 
 resetObjects();
-var gameInterval = setInterval(game, 1000 / speed);
+var gameInterval = setInterval(game, 1000 / speed);// speed);

@@ -144,6 +144,7 @@ var activePiece;
 var score = 0;
 var arrayOfPieces = [];
 var arrayOfPiecesPosition = 0;
+var paused = false;
 
 //create board array
 var board = new Array(20);
@@ -303,7 +304,7 @@ function rotatePiece() {
             } else {
                 boardY = 1;
             }
-            if (rotateOnly9s(((activePiece.x - 1) + j), ((activePiece.y - 1) + boardY))) {
+            if (isNine(((activePiece.x - 1) + j), ((activePiece.y - 1) + boardY))) {
                 pieceArray[j][i] = board[(activePiece.y - 1) + boardY][(activePiece.x - 1) + j];                
             }
         }
@@ -324,7 +325,7 @@ function rotatePiece() {
     //createActivePiece();
 }
 
-function rotateOnly9s(i, j) {
+function isNine(i, j) {
     if (board[j][i] == 9) {
         return true;
     } else {
@@ -399,6 +400,52 @@ function checkCrossedBorder() {
     } else {
     return true;        
     }
+}
+
+function checkCrossedOtherBlock() {
+    var temp = Array(3);
+
+    for (let i = 0; i < 3; i++) {
+        temp[i] = Array(3);
+    }
+
+    for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < 3; i++) {
+            temp[j][i] = 0;
+        }
+    }
+
+    // fill temp with rotated
+    var boardY = 0;
+    for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < 3; i++) {
+            if (i == 0) {
+                boardY = 2;
+            } else if (i == 2) {
+                boardY = 0;
+            } else {
+                boardY = 1;
+            }
+            if (isNine(((activePiece.x - 1) + j), ((activePiece.y - 1) + boardY))) {
+                temp[j][i] = board[(activePiece.y - 1) + boardY][(activePiece.x - 1) + j];
+            }
+        }
+    }
+
+    for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < 3; i++) {
+            console.log(temp[j][i]);
+        }
+    }
+
+    for (let j = 0; j < 3; j++) {
+        for (let i = 0; i < 3; i++) {
+            if (temp[j][i] == 9 && (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] != 9)) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 function blockHorizontalMovement(movement) {
@@ -585,7 +632,7 @@ function newBlock() {
 
 function game() {
     drop1Block();
-    routineCheckingProcedures();
+    checkGameEnding();
 }
 
 createArrayOfPieces();
@@ -596,7 +643,7 @@ body.addEventListener('keydown', function (event) {
     checkGameEnding();
     switch (event.key) {
         case "w": case "W": case "ArrowUp":
-            if (checkCrossedBorder()) {
+            if (checkCrossedBorder() && checkCrossedOtherBlock()) {
                 if (activePiece.y < 18) {
                     rotatePiece();
                     createActivePiece();

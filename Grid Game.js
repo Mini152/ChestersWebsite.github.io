@@ -1,5 +1,5 @@
 const container = document.getElementById("container");
-var foodPosition, playerPosition, Energy = 100, Score = 0;
+var foodPosition, playerPosition, energy = 100, score = 0;
 
 function makeRows(rows, cols) {
     container.style.setProperty('--grid-rows', rows);
@@ -18,6 +18,7 @@ function createNewFood() {
         foodPosition = createNewFood();
         return;
     }
+    console.log(rnd);
     var id = ("grid" + rnd);
     var element = document.getElementById(id);
     element.innerText = '0';
@@ -26,31 +27,30 @@ function createNewFood() {
 
 function checkIfThereIsFoodAndNotDuplicate() {
     var foodCount = 0;
-    for (var i = 0; i < 99; i++) {
+    for (var i = 0; i < 100; i++) {
         var id = "grid" + i;
         var element = document.getElementById(id);
         if (element.innerText == '0') {
             foodCount++; 
         }
     }
-    if (foodCount > 1) {
-        for (var i = 0; i < 99; i++) {
+    if (foodCount == 1) return true;
+    else {
+        console.log("More or less than 1 detected");
+        document.getElementById("grid99").innerText = '';
+        for (var i = 0; i < 100; i++) {
             var id = "grid" + i;
             var element = document.getElementById(id);
             element.innerText = '';
         }
+        //var rnd = Math.floor(Math.random() * 100);
         var id = "grid" + playerPosition;
         var element = document.getElementById(id);
         element.innerText = 'X';
         foodPosition = createNewFood();
+        checkIfThereIsFoodAndNotDuplicate();
     }
-    for (var i = 0; i < 99; i++) {
-        var id = "grid" + i;
-        var element = document.getElementById(id);
-        if (element.innerText == '0') {
-            return true;
-        }
-    }
+
     return false;
 }
 
@@ -65,33 +65,33 @@ function getStartPoint() {
 function checkIfFood() {
     if (playerPosition == foodPosition) {
         foodPosition = createNewFood();
-        Score += 100;
-        Energy += 3;
+        score += 100;
+        energy += 3;
         updateEnergy();
         updateScore();
     }
     if (!checkIfThereIsFoodAndNotDuplicate()) {
-        foodPosition = createNewFood();
+        checkIfFood();
     }
 }
 
 function decrementEnergy() {
-    Energy--;
+    energy--;
     updateEnergy();
-    if (Energy == 0) {
-        alert("Game Over" + " " + "Score: " + Score)
+    if (energy == 0) {
+        alert("Game Over" + " " + "Score: " + score)
         window.location.reload();
     }
 }
 
 function updateEnergy() {
     var element = document.getElementById('energy');
-    element.innerText = "Energy: " + Energy + ";";
+    element.innerText = "Energy: " + energy + ";";
 }
 
 function updateScore() {
     var element = document.getElementById('score');
-    element.innerText = "Score: " + Score;
+    element.innerText = "Score: " + score;
 }
 
 function moveUp() {
@@ -134,8 +134,8 @@ function moveRight() {
     element.innerText = 'X';
 }
 
-function checkLoop(Movement) {
-    if (playerPosition.toString().length == 1 && Movement == -10) {
+function checkLoop(movement) {
+    if (playerPosition.toString().length == 1 && movement == -10) {
         var id = ("grid" + playerPosition);
         var element = document.getElementById(id);
         element.innerText = '';
@@ -144,7 +144,7 @@ function checkLoop(Movement) {
         element = document.getElementById(id);
         element.innerText = 'X';
         return true;
-    } else if (playerPosition % 10 == 0 && Movement == - 1) {
+    } else if (playerPosition % 10 == 0 && movement == - 1) {
         var id = ("grid" + playerPosition);
         var element = document.getElementById(id);
         element.innerText = '';
@@ -153,7 +153,7 @@ function checkLoop(Movement) {
         element = document.getElementById(id);
         element.innerText = 'X';
         return true;
-    } else if ((playerPosition + 10).toString().length == 3 && Movement == +10) {
+    } else if ((playerPosition + 10).toString().length == 3 && movement == +10) {
         var id = ("grid" + playerPosition);
         var element = document.getElementById(id);
         element.innerText = '';
@@ -162,7 +162,7 @@ function checkLoop(Movement) {
         element = document.getElementById(id);
         element.innerText = 'X';
         return true;
-    } else if ((playerPosition + 1) % 10 == 0 && Movement == +1) {
+    } else if ((playerPosition + 1) % 10 == 0 && movement == +1) {
         var id = ("grid" + playerPosition);
         var element = document.getElementById(id);
         element.innerText = '';
@@ -181,31 +181,25 @@ foodPosition = createNewFood();
 
 onkeydown = function() {
     if (event.keyCode == 87 || event.keyCode == 38) { //w
-        if (checkLoop(-10)) {
-        }
-        else {
+        if (!checkLoop(-10)) {
             moveUp();
         }
         checkIfFood();
         decrementEnergy();
     } else if (event.keyCode == 65 || event.keyCode == 37) { //a
-        if (checkLoop(-1)) {
-        }
-        else {
+        if (!checkLoop(-1)) {
             moveLeft();
         }
         checkIfFood();
         decrementEnergy();
     } else if (event.keyCode == 83 || event.keyCode == 40) { //s
-        if (checkLoop(+10)) {
-        } else {
+        if (!checkLoop(+10)) {
             moveDown();
         }
         checkIfFood();
         decrementEnergy();
     } else if (event.keyCode == 68 || event.keyCode == 39) { //d
-        if (checkLoop(+1)) {
-        } else {
+        if (!checkLoop(+1)) {
             moveRight();
         }
         checkIfFood();

@@ -16,7 +16,7 @@ function start() {
     setTimeout( () => {
         canvas.style.backgroundColor = "green";
         startTime = Date.now();
-    }, Math.random() * 5000);
+    }, Math.floor(Math.random() * (5000 - 500 + 1)) + 500);
 }
 
 function clicked() {

@@ -55,47 +55,8 @@ function getTitle(bTitle) {
 
 // read this from here
 function saveCanvas() {
-    var img = document.createElement('img');
-    img.src = canvas.toDataURL()
-
-    var div = document.createElement('div');
-    div.contentEditable = true;
-    div.appendChild(img);
-    document.body.appendChild(div);
-
-    // do copy
-    SelectText(div);
-    document.execCommand('Copy');
-    document.body.removeChild(div);
+    canvas.toBlob(blob => navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]));
 }
-
-function SelectText(element) {
-    var doc = document;
-    if (doc.body.createTextRange) {
-        var range = document.body.createTextRange();
-        range.moveToElementText(element);
-        range.select();
-    } else if (window.getSelection) {
-        var selection = window.getSelection();
-        var range = document.createRange();
-        range.selectNodeContents(element);
-        selection.removeAllRanges();
-        selection.addRange(range);
-    }
-}
-// to here
-
-
-//var fileSaver = require('file-saver');
-//
-//function saveCanvas() {
-//    canvas.toBlob(function(blob) {
-//        fileSaver.saveAs(blob, prompt("Enter File Name"));
-//    });
-//}
-
-//fetch("Draw.txt").then(response => response.text()).then(text => console.log(text));
-//console.log(URL.createObjectURL("text"));
 
 // event handlers
 canvas.addEventListener("mousemove", function() {
@@ -124,6 +85,7 @@ canvas.addEventListener("mouseleave", function() {
 canvas.addEventListener("click", function() {
     drawOnMousePostiton(canvas);
 });
+
 //btn events
 btnClear.addEventListener("click", function() {
     var ctx = canvas.getContext("2d");
