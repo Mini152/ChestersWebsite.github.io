@@ -13,8 +13,17 @@ const btnPerSecondUpgrade = document.getElementById("btnPerSecondUpgrade");
 // reset
 const btnReset = document.getElementById("btnReset");
 
+// fill variables with stored data
+var totalMoney = parseInt(localStorage.getItem("ClickerGame-totalMoney"));
+var moneyPerSecond = parseInt(localStorage.getItem("ClickerGame-moneyPerSecond"));
+var moneyPerClick = parseInt(localStorage.getItem("ClickerGame-moneyPerClick"));
+var clickUpgradePrice = parseInt(localStorage.getItem("ClickerGame-clickUpgradePrice"));
+var clickUpgrade = parseInt(localStorage.getItem("ClickerGame-clickUpgrade"));
+var perSecondUpgradePrice = parseInt(localStorage.getItem("ClickerGame-perSecondUpgradePrice"));
+var perSecondUpgrade = parseInt(localStorage.getItem("ClickerGame-perSecondUpgrade"));
+
 // if logged in before tell how much money was gained on while logged off
-if (localStorage.getItem("ClickerGame-totalMoney") != null) {
+if (localStorage.getItem("ClickerGame-moneyPerSecond") != 0) {
     let previousTime = parseInt(localStorage.getItem("ClickerGame-currentTime")); // get previously stored time information
     let currentTime = new Date().getTime(); // get current time
     let millisecondDifference = currentTime - previousTime; // get the difference between previous & current time
@@ -32,17 +41,6 @@ if (localStorage.getItem("ClickerGame-clickUpgrade") == null) localStorage.setIt
 if (localStorage.getItem("ClickerGame-perSecondUpgradePrice") == null) localStorage.setItem("ClickerGame-perSecondUpgradePrice", "80");
 if (localStorage.getItem("ClickerGame-perSecondUpgrade") == null) localStorage.setItem("ClickerGame-perSecondUpgrade", "1");
 if (localStorage.getItem("ClickerGame-currentTime") == null) localStorage.setItem("ClickerGame-currentTime", new Date().getTime());
-
-// fill variables with stored data
-var totalMoney = parseInt(localStorage.getItem("ClickerGame-totalMoney"));
-var moneyPerSecond = parseInt(localStorage.getItem("ClickerGame-moneyPerSecond"));
-var moneyPerClick = parseInt(localStorage.getItem("ClickerGame-moneyPerClick"));
-var clickUpgradePrice = parseInt(localStorage.getItem("ClickerGame-clickUpgradePrice"));
-var clickUpgrade = parseInt(localStorage.getItem("ClickerGame-clickUpgrade"));
-var perSecondUpgradePrice = parseInt(localStorage.getItem("ClickerGame-perSecondUpgradePrice"));
-var perSecondUpgrade = parseInt(localStorage.getItem("ClickerGame-perSecondUpgrade"));
-
-
 
 function updatePrices() {
     // update frontend displays with updated variables
