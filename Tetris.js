@@ -452,45 +452,57 @@ function blockHorizontalMovement(movement) {
     //gets stuck on right
     for (let j = 0; j < 3; j++) {
         for (let i = 0; i < 3; i++) {
-            if (activePiece.x - 2 > 0 && movement == -1) {
-                if (pieceArrayLeftClear()) {
+            if (activePiece.x != 0 && movement == -1) {
+                if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
+                    if (board[(activePiece.y - 1) + j][(activePiece.x - 1 - 1) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x - 1 - 1) + i] != 9) {
+                        return true;
+                    }
+                }
+                /*if (pieceArrayLeftClear()) {
                     //-2
                     if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
-                        if ((board[(activePiece.y - 1) + j][(activePiece.x - 2) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x - 2) + i] != 9)) {
+                        if ((board[(activePiece.y - 1) + j][((activePiece.x - 1) - 1) + i] != 0 && board[(activePiece.y - 1) + j][((activePiece.x - 1) - 1) + i] != 9)) {
                             return true;
                         }
                     }
                 } else {
                     //-1
                     if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
-                        if ((board[(activePiece.y - 1) + j][(activePiece.x - 2) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x - 2) + i] != 9) && movement == -1) {
+                        if (board[(activePiece.y - 1) + j][((activePiece.x - 1) - 1) + i] != 0 && board[(activePiece.y - 1) + j][((activePiece.x - 1) - 1) + i] != 9) {
                             return true;
                         }
                     }
-                }
+                }*/
             }
-            if (activePiece.x + 2 < 9 && movement == 1) {
-                if (pieceArrayRightClear()) {
+            if (activePiece.x != 9 && movement == 1) {
+                if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
+                    if (board[(activePiece.y - 1) + j][(activePiece.x) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x) + i] != 9) {
+                        return true;
+                    }
+                }
+                /*if (pieceArrayRightClear()) {
                     //2
+                    // if is active piece and 
                     if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
-                        if ((board[(activePiece.y - 1) + j][(activePiece.x + 1) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x + 1) + i] != 9)) {
+                        if ((board[(activePiece.y - 1) + j][((activePiece.x - 1) + 1) + i] != 0 && board[(activePiece.y - 1) + j][((activePiece.x - 1) + 1) + i] != 9)) {
                             return true;
                         }
                     }
                 } else {
                     //1
                     if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
-                        if ((board[(activePiece.y - 1) + j][(activePiece.x) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x) + i] != 9) && movement == 1) {
+                        if (board[(activePiece.y - 1) + j][(activePiece.x) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x) + i] != 9) {
                             return true;
                         }
                     }
-                }
+                }*/
             }
         }
     }
     return false;
 }
 
+/*
 function pieceArrayLeftClear() {
     var count = 0;
     for (let j = 0; j < 3; j++) {
@@ -516,7 +528,7 @@ function pieceArrayRightClear() {
     }
     return false;
 }
-
+*/
 //piece and floor collision
 
 function convertActivePieceToNum() {
