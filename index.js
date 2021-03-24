@@ -202,7 +202,7 @@ btnReloadBackground.addEventListener("click", () => {
 btnResetBackground.addEventListener("click", () => {
     // fill inputs with default values
     document.getElementById("txtNoOfPoints").value = 100;
-    document.getElementById("txtLinks").value = 3;
+    document.getElementById("txtLinks").value = 5;
     document.getElementById("txtAnchors").value = 20;
     document.getElementById("txtDistance").value = 100;
     document.getElementById("txtTimeToChange").value = 5000;
