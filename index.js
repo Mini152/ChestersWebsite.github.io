@@ -4,10 +4,14 @@ const body = document.getElementById("body");
 // -----------------------------------------
 
 function resizeWindow() {
-    var gamesOffset = "";
-    var utilityOffset = "";
-    var codeOffset = "";
-    var aboutOffset = "";
+    let gamesOffset = "";
+    let utilityOffset = "";
+    let codeOffset = "";
+    let aboutOffset = "";
+    let divGamesDropdown = document.getElementById("divGamesDropdown");
+    let divUtilityDropdown = document.getElementById("divUtilityDropdown");
+    let btnCode = document.getElementById("btnCode");
+    let btnAbout = document.getElementById("btnAbout");
     if (window.outerWidth > 1500) { // if window width is greater than 1500px
         gamesOffset = "16%"; utilityOffset = "8%"; codeOffset = "8%"; aboutOffset = "16%"; // set the postions of the buttons and dropdowns to their widest values
     } else if (window.outerWidth > 1300) { // else if window width is greater than 1500px 
@@ -15,9 +19,22 @@ function resizeWindow() {
     } else if (window.outerWidth > 1100) {
         gamesOffset = "6%"; utilityOffset = "3%"; codeOffset = "3%"; aboutOffset = "6%";
     } else if (window.outerWidth > 1000) {
-        gamesOffset = "2%"; utilityOffset = "1%"; codeOffset = "1%"; aboutOffset = "2%";       
-    } else { // if window width is less than 1000px the minimum window width will take place
-        gamesOffset = "0%"; utilityOffset = "0%"; codeOffset = "0%"; aboutOffset = "0%"; // this will remove all postioning values and the buttons and dropdowns will be at their minimum
+        gamesOffset = "1%"; utilityOffset = "0%"; codeOffset = "0%"; aboutOffset = "1%";       
+    }
+    //else { // if window width is less than 1000px the minimum window width will take place
+    //    
+    //    gamesOffset = "0%"; utilityOffset = "0%"; codeOffset = "0%"; aboutOffset = "0%"; // this will remove all postioning values and the buttons and dropdowns will be at their minimum
+    //}
+    if (window.outerWidth <= 1000) {
+        divGamesDropdown.style.display = "none";
+        divUtilityDropdown.style.display = "none";
+        btnCode.style.display = "none";
+        btnAbout.style.display = "none";
+    } else {
+        divGamesDropdown.style.display = "inline-block";
+        divUtilityDropdown.style.display = "inline-block";
+        btnCode.style.display = "inline-block";
+        btnAbout.style.display = "inline-block";
     }
     // setting postitons of the top buttons and dropdowns
     document.getElementById("divGamesDropdown").style.right = gamesOffset;
@@ -125,7 +142,7 @@ imgInSettings.addEventListener("click", () => {
 btnReloadBackground.addEventListener("click", () => {
     // validating inputs
     // noOfPoints
-    var regex = new RegExp('^[0-9][0-9]?[0-9]?$|^1000$'); // regex to limit number of points to between 0 and 1000
+    let regex = new RegExp('^[0-9][0-9]?[0-9]?$|^1000$'); // regex to limit number of points to between 0 and 1000
     if (!regex.test(document.getElementById("txtNoOfPoints").value)) {
         alert("Number of points must a number between 0 and 1000");
         return;
@@ -262,10 +279,10 @@ class point2D { // constructor class for point2D
 function createBackground() { 
     // removes canvas blur
     canvas.style.width = 100 + "%";
-    canvas.style.height = 937 + "%";
+    canvas.style.height = 100 + "%";
     var scale = window.devicePixelRatio;
-    canvas.width = Math.floor(window.outerWidth * scale);
-    canvas.height = Math.floor(937 * scale); 
+    canvas.width = Math.floor(window.innerWidth * scale);
+    canvas.height = Math.floor(window.innerHeight * scale); 
     context.scale(scale, scale);
 
     for (let i = 0; i < noOfPoints; i++) {
@@ -356,6 +373,12 @@ function renderBackground() {
     }
     context.stroke(); 
 }
+
+window.addEventListener("resize", () => {
+    arrPoints = [];
+    createBackground();
+    renderBackground();
+});
 
 createBackground(); 
 var interval = setInterval(changePointsLocation, (timeToChange / distance)); 
