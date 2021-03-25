@@ -580,7 +580,7 @@ function drop1Block() {
 }
 
 function checkGameEnding() {
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 10; i++) {
         if (board[2][i] != 0 && board[2][i] != 9) {
             clearInterval(gameInterval);
             alert('Game Over');
@@ -592,7 +592,6 @@ function checkGameEnding() {
 
 function checkForFullRow() {
     var count = 0;
-    var row = 0;
     for (let j = 0; j < 19; j++) {
         for (let i = 0; i < 10; i++) {
             if (board[j][i] != 0) {
@@ -600,12 +599,8 @@ function checkForFullRow() {
             }
         }
         if (count == 10) {
-            row = j;
-            for (let i = 0; i < 9; i++) {
-                board[row][i] = 0;
-            }
-            for (let z = row - 1; z > 0; z--) {
-                for (let i = 0; i < 9; i++) {
+            for (let z = j - 1; z > 0; z--) {
+                for (let i = 0; i < 10; i++) {
                     board[z + 1][i] = board[z][i];
                 }
             }
@@ -615,13 +610,6 @@ function checkForFullRow() {
         }          
         count = 0;
     }
-
-
-    //if (count == 10) {
-
-    //} else {
-    //    return;
-    //}
 }
 
 // update score
