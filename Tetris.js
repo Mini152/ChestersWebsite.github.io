@@ -670,7 +670,7 @@ body.addEventListener('keydown', function (event) {
                 renderBoard();
             }
             break;
-        case " ":
+        case " ": case "Insert":
             while (!collision()) {
                 drop1Block();
             }
