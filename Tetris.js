@@ -1,11 +1,8 @@
 const canvas = document.getElementById('canvas');
+const canvStored = document.getElementById('canvStored');
 const context = canvas.getContext('2d');
+const contextStored = canvStored.getContext('2d');
 const body = document.getElementById('body');
-
-//var scale = window.devicePixelRatio; // scale = pixel ratio scale
-//canvas.width = Math.floor(window.outerWidth * scale) // canvas width = window width adjusted by scale
-//canvas.height = Math.floor(937 * scale); // canvas height = window height adjusted by scale
-//context.scale(scale, scale); // set scale of context
 
 //Guide:
 //30X x x 7.5Y per tile
@@ -26,7 +23,8 @@ const body = document.getElementById('body');
 
 //board[y][x]
 
-//declare pieces
+// declare pieces
+
 const lightBlue = {
     //pivot coords
     x: 5,
@@ -40,7 +38,7 @@ const lightBlue = {
     piece3X: 1,
     //other
     colour: "lightblue",
-    colourNum: 1,
+    ID: 1,
     score: 3
 }
 const blue = {
@@ -56,7 +54,7 @@ const blue = {
     piece3X: 1,
     //other
     colour: "blue",
-    colourNum: 2,
+    ID: 2,
     score: 4
 }
 const orange = {
@@ -72,7 +70,7 @@ const orange = {
     piece3X: 1,
     //other
     colour: "orange",
-    colourNum: 3,
+    ID: 3,
     score: 4
 }
 const yellow = {
@@ -88,7 +86,7 @@ const yellow = {
     piece3X: 1,
     //other
     colour: "yellow",
-    colourNum: 4,
+    ID: 4,
     score: 4
 }
 const green = {
@@ -104,7 +102,7 @@ const green = {
     piece3X: 1,
     //other
     colour: "green",
-    colourNum: 5,
+    ID: 5,
     score: 4
 }
 const purple = {
@@ -120,7 +118,7 @@ const purple = {
     piece3X: 1,
     //other
     colour: "purple",
-    colourNum: 6,
+    ID: 6,
     score: 4
 }
 const red = {
@@ -136,27 +134,34 @@ const red = {
     piece3X: 1,
     //other
     colour: "red",
-    colourNum: 7,
+    ID: 7,
     score: 4
 }
 
+const BOARD_WIDTH = 10;
+const BOARD_HEIGHT = 20;
+const PIECE_ARRAY_WH = 3; // piece array width & height
+
 var activePiece;
+var storedPiece = null;
+
 var score = 0;
 var arrayOfPieces = [];
 var arrayOfPiecesPosition = 0;
 var paused = false;
 
-//create board array
-var board = new Array(20);
+// Create & Initialise Arrays
 
-for (let j = 0; j < 20; j++) {
-    board[j] = new Array(10);
+var board = new Array(BOARD_HEIGHT);
+var pieceArray = Array(PIECE_ARRAY_WH);
+
+for (let j = 0; j < BOARD_HEIGHT; j++) {
+    board[j] = new Array(BOARD_WIDTH);
 }
 
-//initialise array
-for (let j = 0; j < 20; j++) {
-    for (let i = 0; i < 10; i++) {
-        if (j == 19) {
+for (let j = 0; j < BOARD_HEIGHT; j++) {
+    for (let i = 0; i < BOARD_WIDTH; i++) {
+        if (j == BOARD_HEIGHT - 1) {
             board[j][i] = 8;
         } else {
             board[j][i] = 0; 
@@ -164,26 +169,29 @@ for (let j = 0; j < 20; j++) {
     }
 }
 
-//create pieceArray
-var pieceArray = Array(3);
-
-for (let j = 0; j < 3; j++) {
-    pieceArray[j] = Array(3);
+for (let j = 0; j < PIECE_ARRAY_WH; j++) {
+    pieceArray[j] = Array(PIECE_ARRAY_WH);
 }
 
-//initialise array
-for (let j = 0; j < 3; j++) {
-    for (let i = 0; i < 3; i++) {
+for (let j = 0; j < PIECE_ARRAY_WH; j++) {
+    for (let i = 0; i < PIECE_ARRAY_WH; i++) {
         pieceArray[j][i] = 0;
     }
 }
 
-//render
+// remove canvas blur
+
+var scale = window.devicePixelRatio;
+canvas.width = Math.floor(150 * scale);
+canvas.height = Math.floor(300 * scale);
+context.scale(scale, scale);
+
+// Render Board
 
 function renderBoard() {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    for (let j = 0; j < 20; j++) {
-        for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < BOARD_HEIGHT; j++) {
+        for (let i = 0; i < BOARD_WIDTH; i++) {
             colourTile(i, j);
         }
     }
@@ -245,10 +253,25 @@ function colourTile(i, j) {
 }
 
 function createTile(i, j) {
-    context.fillRect(i * 30, j * 7.5, 30, 7.5);
+    context.fillRect(i * canvas.width / BOARD_WIDTH, j * canvas.height / BOARD_HEIGHT, canvas.width / BOARD_WIDTH, canvas.height / BOARD_HEIGHT);
 }
 
-//select piece
+// Render & Update Stored Canvas
+
+function updateStoredPieceCanvas() {
+    contextStored.clearRect(0, 0, canvStored.width, canvStored.height);
+    contextStored.fillStyle = storedPiece.colour;
+    createStoredTile(1, 1);
+    createStoredTile(1 + storedPiece.piece1X, 1 + storedPiece.piece1Y);
+    createStoredTile(1 + storedPiece.piece2X, 1 + storedPiece.piece2Y);
+    createStoredTile(1 + storedPiece.piece3X, 1 + storedPiece.piece3Y);
+}
+
+function createStoredTile(i, j) {
+    contextStored.fillRect(i * canvStored.width / PIECE_ARRAY_WH, j * canvStored.height / PIECE_ARRAY_WH, canvStored.width / PIECE_ARRAY_WH, canvStored.height / PIECE_ARRAY_WH);
+}
+
+// Select & Rotate Pieces
 
 function newPiece() {
     if (arrayOfPiecesPosition >= 7) {
@@ -284,19 +307,16 @@ function newPiece() {
 }
 
 function createArrayOfPieces() {
-    //var rnd = Math.floor(Math.random() * 7);
     arrayOfPieces = [0, 1, 2, 3, 4, 5, 6];
     arrayOfPiecesPosition = 0;
     arrayOfPieces.sort(() => Math.random() - 0.5);
 }
 
-//piece rotation
-
 function rotatePiece() {
     clearPieceArray();
-    var boardY = 0;
-    for (let j = 0; j < 3; j++) {
-        for (let i = 0; i < 3; i++) {
+    let boardY = 0;
+    for (let j = 0; j < PIECE_ARRAY_WH; j++) {
+        for (let i = 0; i < PIECE_ARRAY_WH; i++) {
             if (i == 0) {
                 boardY = 2;
             } else if (i == 2) {
@@ -309,34 +329,39 @@ function rotatePiece() {
             }
         }
     }
-
-    //pieceArray[0][2] = board[activePiece.y - 1][activePiece.x - 1]; // 0, 0
-    //pieceArray[1][2] = board[activePiece.y - 1][activePiece.x]; // 0, 1
-    //pieceArray[2][2] = board[activePiece.y - 1][activePiece.x + 1]; // 0, 2
-    //pieceArray[0][1] = board[activePiece.y][activePiece.x - 1]; // 1, 0
-    //pieceArray[1][1] = board[activePiece.y][activePiece.x]; // 1, 1
-    //pieceArray[2][1] = board[activePiece.y][activePiece.x + 1]; // 1, 2
-    //pieceArray[0][0] = board[activePiece.y + 1][activePiece.x - 1]; // 2, 0
-    //pieceArray[1][0] = board[activePiece.y + 1][activePiece.x]; // 2, 1
-    //pieceArray[2][0] = board[activePiece.y + 1][activePiece.x + 1]; // 2, 2
-    //output array
     remove9s();
-
-    //createActivePiece();
 }
 
 function isNine(i, j) {
-    if (board[j][i] == 9) {
-        return true;
-    } else {
-        return false;
-    }
+    return board[j][i] == 9;
 }
 
+// Switch Out Pieces
 
-//create & clear activePiece
+function switchOutPieces() {
+    if (storedPiece != null) {
+        if (!checkStoredPieceCrossBorder() && !checkStoredPieceCrossBlock()) {   
+            let tempPiece = activePiece;
+            activePiece = storedPiece;
+            storedPiece = tempPiece;
+            activePiece.y = storedPiece.y;
+            activePiece.x = storedPiece.x;
+            remove9s();
+            clearPieceArray();
+            updatePieceArray();
+        }
+    } else {
+        storedPiece = activePiece;
+        remove9s();
+        newBlock();
+    }
+    updateStoredPieceCanvas();
 
-function createInitialActivePiece() {
+}
+
+// Create & Clear ActivePiece
+
+function updatePieceArray() {
     pieceArray[1][1] = 9;
     pieceArray[1 + activePiece.piece1Y][1 + activePiece.piece1X] = 9;
     pieceArray[1 + activePiece.piece2Y][1 + activePiece.piece2X] = 9;
@@ -345,8 +370,8 @@ function createInitialActivePiece() {
 }
 
 function remove9s() {
-    for (let j = 0; j < 20; j++) {
-        for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < BOARD_HEIGHT; j++) {
+        for (let i = 0; i < BOARD_WIDTH; i++) {
             if (board[j][i] == 9) {
                 board[j][i] = 0;
             }
@@ -355,37 +380,32 @@ function remove9s() {
 }
 
 function createActivePiece() {
-    for (let j = 0; j < 3; j++) {
-        for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < PIECE_ARRAY_WH; j++) {
+        for (let i = 0; i < PIECE_ARRAY_WH; i++) {
             if (pieceArray[j][i] == 9) {
                 board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] = pieceArray[j][i];
-            }// else {
-            //    board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] = board[(activePiece.y - 1) + j][(activePiece.x - 1) + i];
-            //}
+            }
         }
     }
 }
 
-//clear piece array
-
 function clearPieceArray() {
-    for (let j = 0; j < 3; j++) {
-        for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < PIECE_ARRAY_WH; j++) {
+        for (let i = 0; i < PIECE_ARRAY_WH; i++) {
             pieceArray[j][i] = 0;
         }
     }
 }
 
-//border & piece collision detection
+// Collision detection
 
 function detectSideBorders(movement) {
     if ((board[activePiece.y - 1][9] == 9 || board[activePiece.y][9] == 9 || board[activePiece.y + 1][9] == 9) && movement == 1) {
         return false;
     } else if ((board[activePiece.y - 1][0] == 9 || board[activePiece.y][0] == 9 || board[activePiece.y + 1][0] == 9) && movement == -1) {
         return false;
-    } else {
-        return true;
     }
+    return true;
 }
 
 function checkCrossedBorder() {
@@ -397,28 +417,28 @@ function checkCrossedBorder() {
         if (pieceArray[0][0] == 9 || pieceArray[2][0] == 9) {
             return false;
         }
-    } else {
-    return true;        
     }
+    return true;        
 }
 
 function checkCrossedOtherBlock() {
-    var temp = Array(3);
+    let temp = Array(PIECE_ARRAY_WH);
 
-    for (let i = 0; i < 3; i++) {
-        temp[i] = Array(3);
+    for (let i = 0; i < PIECE_ARRAY_WH; i++) {
+        temp[i] = Array(PIECE_ARRAY_WH);
     }
 
-    for (let j = 0; j < 3; j++) {
-        for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < PIECE_ARRAY_WH; j++) {
+        for (let i = 0; i < PIECE_ARRAY_WH; i++) {
             temp[j][i] = 0;
         }
     }
 
     // fill temp with rotated
-    var boardY = 0;
-    for (let j = 0; j < 3; j++) {
-        for (let i = 0; i < 3; i++) {
+
+    let boardY = 0;
+    for (let j = 0; j < PIECE_ARRAY_WH; j++) {
+        for (let i = 0; i < PIECE_ARRAY_WH; i++) {
             if (i == 0) {
                 boardY = 2;
             } else if (i == 2) {
@@ -432,14 +452,8 @@ function checkCrossedOtherBlock() {
         }
     }
 
-    for (let j = 0; j < 3; j++) {
-        for (let i = 0; i < 3; i++) {
-            console.log(temp[j][i]);
-        }
-    }
-
-    for (let j = 0; j < 3; j++) {
-        for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < PIECE_ARRAY_WH; j++) {
+        for (let i = 0; i < PIECE_ARRAY_WH; i++) {
             if (temp[j][i] == 9 && (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] != 9)) {
                 return false;
             }
@@ -449,30 +463,14 @@ function checkCrossedOtherBlock() {
 }
 
 function blockHorizontalMovement(movement) {
-    //gets stuck on right
-    for (let j = 0; j < 3; j++) {
-        for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < PIECE_ARRAY_WH; j++) {
+        for (let i = 0; i < PIECE_ARRAY_WH; i++) {
             if (activePiece.x != 0 && movement == -1) {
                 if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
                     if (board[(activePiece.y - 1) + j][(activePiece.x - 1 - 1) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x - 1 - 1) + i] != 9) {
                         return true;
                     }
                 }
-                /*if (pieceArrayLeftClear()) {
-                    //-2
-                    if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
-                        if ((board[(activePiece.y - 1) + j][((activePiece.x - 1) - 1) + i] != 0 && board[(activePiece.y - 1) + j][((activePiece.x - 1) - 1) + i] != 9)) {
-                            return true;
-                        }
-                    }
-                } else {
-                    //-1
-                    if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
-                        if (board[(activePiece.y - 1) + j][((activePiece.x - 1) - 1) + i] != 0 && board[(activePiece.y - 1) + j][((activePiece.x - 1) - 1) + i] != 9) {
-                            return true;
-                        }
-                    }
-                }*/
             }
             if (activePiece.x != 9 && movement == 1) {
                 if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
@@ -480,80 +478,40 @@ function blockHorizontalMovement(movement) {
                         return true;
                     }
                 }
-                /*if (pieceArrayRightClear()) {
-                    //2
-                    // if is active piece and 
-                    if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
-                        if ((board[(activePiece.y - 1) + j][((activePiece.x - 1) + 1) + i] != 0 && board[(activePiece.y - 1) + j][((activePiece.x - 1) + 1) + i] != 9)) {
-                            return true;
-                        }
-                    }
-                } else {
-                    //1
-                    if (board[(activePiece.y - 1) + j][(activePiece.x - 1) + i] == 9) {
-                        if (board[(activePiece.y - 1) + j][(activePiece.x) + i] != 0 && board[(activePiece.y - 1) + j][(activePiece.x) + i] != 9) {
-                            return true;
-                        }
-                    }
-                }*/
             }
         }
     }
     return false;
 }
 
-/*
-function pieceArrayLeftClear() {
-    var count = 0;
-    for (let j = 0; j < 3; j++) {
-        if (pieceArray[j][0] == 9) {
-            count++;
-        }
-    }
-    if (count == 0) {
-        return true;
-    }
-    return false;
-}
-
-function pieceArrayRightClear() {
-    var count = 0;
-    for (let j = 0; j < 3; j++) {
-        if (pieceArray[j][2] == 9) {
-            count++;
-        }
-    }
-    if (count == 0) {
-        return true;
-    }
-    return false;
-}
-*/
-//piece and floor collision
-
-function convertActivePieceToNum() {
-    for (let j = 0; j < 20; j++) {
-        for (let i = 0; i < 10; i++) {
-            if (board[j][i] == 9) {
-                board[j][i] = activePiece.colourNum;
+function checkStoredPieceCrossBlock() {
+    if (board[activePiece.y + storedPiece.piece1Y][activePiece.x + storedPiece.piece1X] == 0 || board[activePiece.y + storedPiece.piece1Y][activePiece.x + storedPiece.piece1X] == 9) {
+        if (board[activePiece.y + storedPiece.piece2Y][activePiece.x + storedPiece.piece2X] == 0 || board[activePiece.y + storedPiece.piece2Y][activePiece.x + storedPiece.piece2X] == 9) {
+            if (board[activePiece.y + storedPiece.piece3Y][activePiece.x + storedPiece.piece3X] == 0 || board[activePiece.y + storedPiece.piece3Y][activePiece.x + storedPiece.piece3X] == 9) {
+                return false;
             }
         }
     }
     return true;
 }
 
-//function floorCollision() {
-//    for (let i = 0; i < 10; i++) {
-//        if (board[18][i] == 9) {
-//            return true;
-//        }
-//    }
-//    return false;
-//}
+function checkStoredPieceCrossBorder() {
+    if (activePiece.x == 9) {
+        if (storedPiece.piece1X == 1 || storedPiece.piece2X == 1 || storedPiece.piece3X == 1) {
+            return true;
+        }
+    }
+    if (activePiece.x == 0) {
+        if (storedPiece.piece1X == -1 || storedPiece.piece2X == -1 || storedPiece.piece3X == -1) {
+            return true;
+        }
+    }
+    return false;
+}
 
 function collision() {
-    for (let j = 0; j < 19; j++) {
-        for (let i = 0; i < 10; i++) {
+    for (let j = 0; j < BOARD_HEIGHT - 1; j++) {
+        for (let i = 0; i < BOARD_WIDTH; i++) {
             if (board[j][i] == 9) {
                 if (board[j + 1][i] != 0 && board[j + 1][i] != 9) {
                     return true;
@@ -564,7 +522,7 @@ function collision() {
     return false;
 }
 
-//drop down 1 block
+// Game Logic & Other Methods
 
 function drop1Block() {
     if (collision()) {
@@ -579,8 +537,18 @@ function drop1Block() {
     }
 }
 
+function convertActivePieceToNum() {
+    for (let j = 0; j < BOARD_HEIGHT; j++) {
+        for (let i = 0; i < BOARD_WIDTH; i++) {
+            if (board[j][i] == 9) {
+                board[j][i] = activePiece.ID;
+            }
+        }
+    }
+}
+
 function checkGameEnding() {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < BOARD_WIDTH; i++) {
         if (board[2][i] != 0 && board[2][i] != 9) {
             clearInterval(gameInterval);
             alert('Game Over');
@@ -591,16 +559,16 @@ function checkGameEnding() {
 }
 
 function checkForFullRow() {
-    var count = 0;
-    for (let j = 0; j < 19; j++) {
-        for (let i = 0; i < 10; i++) {
+    let count = 0;
+    for (let j = 0; j < BOARD_HEIGHT - 1; j++) {
+        for (let i = 0; i < BOARD_WIDTH; i++) {
             if (board[j][i] != 0) {
                 count++;
             }
         }
         if (count == 10) {
             for (let z = j - 1; z > 0; z--) {
-                for (let i = 0; i < 10; i++) {
+                for (let i = 0; i < BOARD_WIDTH; i++) {
                     board[z + 1][i] = board[z][i];
                 }
             }
@@ -612,21 +580,17 @@ function checkForFullRow() {
     }
 }
 
-// update score
-
 function updateScore(increment) {
-    var bScore = document.getElementById("bScore");
+    let bScore = document.getElementById("bScore");
     score += increment;
     bScore.innerText = score;
 }
-
-//game running
 
 function newBlock() {
     convertActivePieceToNum();
     clearPieceArray(); 
     newPiece();
-    createInitialActivePiece();
+    updatePieceArray();
     renderBoard();
 }
 
@@ -634,6 +598,8 @@ function game() {
     drop1Block();
     checkGameEnding();
 }
+
+// Run Game
 
 createArrayOfPieces();
 newBlock();
@@ -670,52 +636,15 @@ body.addEventListener('keydown', function (event) {
                 renderBoard();
             }
             break;
+        case "Shift": case "Control":
+            switchOutPieces();
+            createActivePiece();
+            renderBoard();
+            break;
         case " ": case "Insert":
             while (!collision()) {
                 drop1Block();
             }
+            break;
     }
 });
-
-/*
-canvas.addEventListener("click", function (event) {
-    if (event.y <= 200) {
-        //up
-        if (checkCrossedBorder()) {
-            if (activePiece.y < 18) {
-                rotatePiece();
-                createActivePiece();
-                renderBoard();
-            }
-        }
-        return;
-    } else if (event.y >= 565) {
-        //down
-        drop1Block();
-        return;
-    }
-
-    if (event.x <= 600) { // canvas.width = 300 but mouseEvent.x sees left as 400 and right as 800, 600 middle
-        //left
-        if (detectSideBorders(-1) && !blockHorizontalMovement(-1)) {
-            activePiece.x--;
-            remove9s();
-            createActivePiece();
-            renderBoard();
-        }
-        return;
-    } else {
-        //right
-        if (detectSideBorders(1) && !blockHorizontalMovement(1)) {
-            activePiece.x++;
-            remove9s();
-            createActivePiece();
-            renderBoard();
-        }
-        return;
-    }
-});
-*/
-
-// personal highscore leaderboard (computer based)
-

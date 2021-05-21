@@ -30,7 +30,7 @@ function renderCalendar() {
         }
     }
 
-    if (selectedMonth == dateTime.getMonth()) {
+    if (selectedMonth == dateTime.getMonth() && selectedYear == dateTime.getFullYear()) {
         // highlighting today
         document.getElementById("divDay" + ((dateTime.getDate() - 1) + getTheFirstDayOfMonth())).style.borderColor = "red"; // -1 because date starts on 1 and calender starts on 0
     }
