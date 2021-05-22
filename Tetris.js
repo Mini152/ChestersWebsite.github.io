@@ -603,7 +603,7 @@ function game() {
 
 createArrayOfPieces();
 newBlock();
-var gameInterval = setInterval(game, 1000/ 3);
+var gameInterval = setInterval(game, 1000 / 3);
 
 body.addEventListener('keydown', function (event) {
     checkGameEnding();

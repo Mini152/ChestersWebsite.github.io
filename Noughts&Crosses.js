@@ -220,8 +220,11 @@ function algorithm(algorithmTeam, oppositeTeam) {
     // stop diagonal trick
 
     if (buttons[1].innerText == algorithmTeam && buttons[5].innerText == oppositeTeam) {
-        buttons[3].innerText = algorithmTeam;
-        return;
+        if (buttons[3].innerText == "") {
+            buttons[3].innerText = algorithmTeam;
+            winCondition();
+            return;
+        }
     }
 
     //Check for 1 algortithm team and 2 blanks in row and place
@@ -285,18 +288,35 @@ function algorithm(algorithmTeam, oppositeTeam) {
     }
 
     //random place
+    
     while (true) {
         var rndGuess = Math.floor(Math.random() * (9 - 1 + 1) ) + 1;
+        var guessed = [];
+        var filled = true;
         if (buttons[rndGuess].innerText == "") {
             buttons[rndGuess].innerText = algorithmTeam;
             winCondition();
             return;
         }
-        if (loopCount >= 10) {
+        
+        if (!guessed.includes(rndGuess)) {
+            guessed.push(rndGuess);
+        }
+
+        for (let i = 1; i <= 9; i++) {
+            if (!guessed.includes(i)) {
+                filled = false;
+            }
+        }
+
+        for (let i = 0; i < guessed.length; i++) {
+            console.log(guessed[i]);
+        }
+
+        if (filled) {
             winCondition();
             return;
         }
-        loopCount++;
     }
 }
 
@@ -318,7 +338,7 @@ function crosses(ButtonPressed) {
 
 function clearBoard() {
     for (var i = 1; i <= 9; i++) {
-        buttons[i] = "";
+        buttons[i].innerText = "";
     }
     window.location.reload();
 }
@@ -326,11 +346,11 @@ function clearBoard() {
 function whoGoes() {
     var rndNum = Math.floor(Math.random() * (2 - 1 + 1)) + 1;
     if (rndNum == 1) {
-        alert('Algorithm Controls Noughts');
+        //alert('Algorithm Controls Noughts');
         algorithmControlNoughts = true;
         algorithm('0', 'X');
     } else if (rndNum == 2) {
-        alert('Algorithm Controls Crosses');
+        //alert('Algorithm Controls Crosses');
         algorithmControlNoughts = false;
     }
 }
