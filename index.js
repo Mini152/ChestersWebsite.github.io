@@ -139,6 +139,8 @@ imgInSettings.addEventListener("click", () => {
     divSettings.style.visibility = "hidden";
 });
 
+// reload & reset btns
+
 btnReloadBackground.addEventListener("click", () => {
     // validating inputs
     // noOfPoints
@@ -260,6 +262,8 @@ btnAbout.addEventListener("click", () => {
 const canvas = document.getElementById("canvas"); // canvas element
 const context = canvas.getContext("2d"); // context of canvas
 
+const MOUSE_DISTANCE = 200;
+
 var arrPoints = [];
 var orderOfClosest = [];
 var movementX = [];
@@ -333,6 +337,8 @@ function getClosestPoints(anchorPointIndex) {
     if (temp.length > links) temp.pop(); 
 }
 
+
+
 function changePointsLocation() {
     if (moves <= 0) { 
         for (let i = 0; i < noOfPoints; i++) { 
@@ -374,10 +380,74 @@ function renderBackground() {
     context.stroke(); 
 }
 
+// cursor move
+
+function moveFromCursor() {
+    let mouseX = getMousePosX();
+    let mouseY = getMousePosY();
+
+    for (let i = 0; i < noOfPoints; i++) {
+        let pointX = arrPoints[i].x;
+        let pointY = arrPoints[i].y;
+        let XDiff = pointX - mouseX;
+        let YDiff = pointY - mouseY;
+        
+        if (Math.sign(XDiff) == -1) x = Math.abs(XDiff);
+        if (Math.sign(YDiff) == -1) y = Math.abs(YDiff);
+        
+        let diff = Math.pow(XDiff, 2) + Math.pow(YDiff, 2);
+        diff = Math.sqrt(diff);
+        
+        if (arrPoints[i].anchor) continue;
+        
+        if (diff <= MOUSE_DISTANCE) {
+            let range = (MOUSE_DISTANCE / 3) / 2;
+            if (mouseX > pointX - range && mouseX < pointX + range && mouseY > pointY) {
+                if (arrPoints[i].y > 0) arrPoints[i].y -= 1;
+            } else if (mouseX > pointX - range && mouseX < pointX + range && mouseY < pointY) {
+                if (arrPoints[i].y < canvas.height) arrPoints[i].y += 1;
+            } else if (mouseY > pointY - range && mouseY < pointY + range && mouseX < pointX) {
+                if (arrPoints[i].x < canvas.width) arrPoints[i].x += 1;
+            } else if (mouseY > pointY - range && mouseY < pointY + range && mouseX > pointX) {
+                if (arrPoints[i].x > 0) arrPoints[i].x -= 1;
+            } else if (mouseX < pointX && mouseY < pointY) {
+                if (arrPoints[i].x < canvas.width) arrPoints[i].x += 1;
+                if (arrPoints[i].y < canvas.height) arrPoints[i].y += 1;
+            } else if (mouseX < pointX && mouseY > pointY) {
+                if (arrPoints[i].x < canvas.width) arrPoints[i].x += 1;
+                if (arrPoints[i].y > 0) arrPoints[i].y -= 1;
+            } else if (mouseX > pointX && mouseY < pointY) {
+                if (arrPoints[i].x > 0) arrPoints[i].x -= 1;
+                if (arrPoints[i].y < canvas.height) arrPoints[i].y += 1;
+            } else if (mouseX > pointX && mouseY > pointY) {
+                if (arrPoints[i].x > 0) arrPoints[i].x -= 1;
+                if (arrPoints[i].y > 0) arrPoints[i].y -= 1;
+            }
+        }
+    }
+}
+
+function getMousePosX() {
+    var rect = canvas.getBoundingClientRect();
+    var x = 0;
+    x = event.clientX - rect.left;
+    return x;
+}
+function getMousePosY() {
+    var rect = canvas.getBoundingClientRect();
+    var y = 0;
+    y = event.clientY - rect.top;
+    return y;
+}
+
 window.addEventListener("resize", () => {
     arrPoints = [];
     createBackground();
     renderBackground();
+});
+
+window.addEventListener("mousemove", () =>  {
+    moveFromCursor();
 });
 
 createBackground(); 
